@@ -1,6 +1,7 @@
 package com.infercidium.mediscreenInfo.model;
 
 import com.infercidium.mediscreenInfo.constant.Genres;
+import com.infercidium.mediscreenInfo.constant.Result;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,33 +26,38 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer patientId;
     /**
-     * Attribute id corresponding to firstName patient.
+     * Attribute given corresponding to firstName patient.
      */
     @NotBlank(message = "firstName is mandatory")
     private String given;
     /**
-     * Attribute id corresponding to lastName patient.
+     * Attribute family corresponding to lastName patient.
      */
     @NotBlank(message = "lastName is mandatory")
     private String family;
     /**
-     * Attribute id corresponding to birthday patient.
+     * Attribute dob corresponding to birthday patient.
      */
     @NotBlank(message = "date of birthday is mandatory")
     private LocalDate dob; //date of birthday
     /**
-     * Attribute id corresponding to patient genre.
+     * Attribute sex corresponding to patient genre.
      */
     @NotBlank(message = "genre is mandatory")
     private Genres sex;
     /**
-     * Attribute id corresponding to address of patient.
+     * Attribute address corresponding to address of patient.
      */
     private String address;
     /**
-     * Attribute id corresponding to phone of patient.
+     * Attribute phone corresponding to phone of patient.
      */
     private String phone;
+
+    /**
+     * Attribute result corresponding to diabetes result.
+     */
+    private Result result = Result.UNKNOWN;
 
     /**
      * Obtain the patient's age by comparing the current date
@@ -68,7 +74,7 @@ public class Patient {
      */
     @Override
     public String toString() {
-        return "Patient{ "
+        return "Patient {"
                 + "patientId = " + patientId
                 + ", given = '" + given + '\''
                 + ", family = '" + family + '\''
@@ -76,6 +82,7 @@ public class Patient {
                 + ", sex = " + sex
                 + ", address = '" + address + '\''
                 + ", phone = '" + phone + '\''
+                + ", result = " + result
                 + '}';
     }
 

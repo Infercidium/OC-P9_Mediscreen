@@ -5,6 +5,18 @@
     <option name="USE_PROJECT_LEVEL_SETTINGS" value="false" />
     <list size="0" />
   </component>
+  <component name="EntryPointsManager">
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="org.springframework.stereotype.Controller" />
+      <item index="1" class="java.lang.String" itemvalue="org.springframework.stereotype.Service" />
+      <item index="2" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.DeleteMapping" />
+      <item index="3" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.GetMapping" />
+      <item index="4" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.PostMapping" />
+    </list>
+    <writeAnnotations>
+      <writeAnnotation name="org.springframework.beans.factory.annotation.Autowired" />
+    </writeAnnotations>
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>

@@ -1,8 +1,8 @@
 package com.infercidium.mediscreenInfo.interfaceService;
 
 import com.infercidium.mediscreenInfo.model.Patient;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface PatientIService {
     //Create
@@ -29,10 +29,28 @@ public interface PatientIService {
     Patient getPatient(int id);
 
     /**
+     * Find patient which has similar name.
+     * @param family is lastName.
+     * @param given is firstName.
+     * @param pageable is current page.
+     * @return the selected patient(s).
+     */
+    Page<Patient> getPatient(String family, String given, Pageable pageable);
+
+    /**
      * Find all patients.
+     * @param pageable is current page.
      * @return the list of patients.
      */
-    List<Patient> getPatientList();
+    Page<Patient> getPatientList(Pageable pageable);
+
+    /**
+     * Find all patients with the lastName.
+     * @param family is lastName.
+     * @param pageable is current page.
+     * @return the list of patients.
+     */
+    Page<Patient> getFamilyPatient(String family, Pageable pageable);
 
     //Delete
     /**
