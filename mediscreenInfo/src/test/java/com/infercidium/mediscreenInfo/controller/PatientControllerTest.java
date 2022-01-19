@@ -11,14 +11,11 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -33,8 +30,7 @@ class PatientControllerTest {
     PatientController patientController;
 
     Patient patient = new Patient();
-    Page<Patient> patientPage = new PageImpl<>(Collections.singletonList(patient));
-    Pageable pageable = PageRequest.of(0, 10);
+    List<Patient> patientList = Collections.singletonList(patient);
 
     @BeforeEach
     void setUp() {
@@ -76,22 +72,22 @@ class PatientControllerTest {
 
     @Test
     void getPatientName() {
-        Mockito.when(patientIService.getPatient("lastName", "firstName", pageable)).thenReturn(patientPage);
-        Page<Patient> result = patientController.getPatientName("lastName", "firstName", pageable);
-        assertEquals(patientPage, result);
+        Mockito.when(patientIService.getPatient("lastName", "firstName")).thenReturn(patientList);
+        List<Patient> result = patientController.getPatientName("lastName", "firstName");
+        assertEquals(patientList, result);
     }
 
     @Test
     void getPatientFamily() {
-        Mockito.when(patientIService.getFamilyPatient("lastName", pageable)).thenReturn(patientPage);
-        Page<Patient> result = patientController.getPatientFamily("lastName", pageable);
-        assertEquals(patientPage, result);
+        Mockito.when(patientIService.getFamilyPatient("lastName")).thenReturn(patientList);
+        List<Patient> result = patientController.getPatientFamily("lastName");
+        assertEquals(patientList, result);
     }
 
     @Test
     void getPatientList() {
-        Mockito.when(patientIService.getPatientList(pageable)).thenReturn(patientPage);
-        Page<Patient> result = patientController.getPatientList(pageable);
-        assertEquals(patientPage, result);
+        Mockito.when(patientIService.getPatientList()).thenReturn(patientList);
+        List<Patient> result = patientController.getPatientList();
+        assertEquals(patientList, result);
     }
 }

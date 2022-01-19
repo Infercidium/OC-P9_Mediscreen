@@ -6,7 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/mediscreenCalcul/mediscreenCalcul.iml" filepath="$PROJECT_DIR$/mediscreenCalcul/mediscreenCalcul.iml" />
       <module fileurl="file://$PROJECT_DIR$/mediscreenInfo/mediscreenInfo.iml" filepath="$PROJECT_DIR$/mediscreenInfo/mediscreenInfo.iml" />
       <module fileurl="file://$PROJECT_DIR$/mediscreenNote/mediscreenNote.iml" filepath="$PROJECT_DIR$/mediscreenNote/mediscreenNote.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mediscreenUI/mediscreenUI.iml" filepath="$PROJECT_DIR$/mediscreenUI/mediscreenUI.iml" />
     </modules>
   </component>
 </project>

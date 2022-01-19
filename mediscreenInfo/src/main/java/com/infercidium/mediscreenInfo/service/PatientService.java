@@ -6,9 +6,9 @@ import com.infercidium.mediscreenInfo.repository.PatientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PatientService implements PatientIService {
@@ -65,53 +65,48 @@ public class PatientService implements PatientIService {
      * Find patient which has similar name.
      * @param family is lastName.
      * @param given  is firstName.
-     * @param pageable is current page.
      * @return the selected patient.
      */
     @Override
-    public Page<Patient> getPatient(final String family, final String given,
-                                    final Pageable pageable) {
-        Page<Patient> patientPage
+    public List<Patient> getPatient(final String family, final String given) {
+        List<Patient> patientList
                 = patientR.findByFamilyIgnoreCaseAndGivenIgnoreCase(
-                        family, given, pageable);
-        if (patientPage.isEmpty()) {
+                        family, given);
+        if (patientList.isEmpty()) {
             throw new NullPointerException("Patient not found, empty list");
         }
         LOGGER.debug("patient(s) found");
-        return patientPage;
+        return patientList;
     }
 
     /**
      * Find all patients.
-     * @param pageable is current page.
      * @return the list of patients.
      */
     @Override
-    public Page<Patient> getPatientList(final Pageable pageable) {
-        Page<Patient> patientPage = patientR.findAll(pageable);
-        if (patientPage.isEmpty()) {
+    public List<Patient> getPatientList() {
+        List<Patient> patientList = patientR.findAll();
+        if (patientList.isEmpty()) {
             throw new NullPointerException("Patient not found, empty list");
         }
         LOGGER.debug("patientList found");
-        return patientPage;
+        return patientList;
     }
 
     /**
      * Find all patients with the lastName.
      * @param family is lastName.
-     * @param pageable is current page.
      * @return the list of patients.
      */
     @Override
-    public Page<Patient> getFamilyPatient(final String family,
-                                          final Pageable pageable) {
-        Page<Patient> patientPage
-                = patientR.findByFamilyIgnoreCase(family, pageable);
-        if (patientPage.isEmpty()) {
+    public List<Patient> getFamilyPatient(final String family) {
+        List<Patient> patientList
+                = patientR.findByFamilyIgnoreCase(family);
+        if (patientList.isEmpty()) {
             throw new NullPointerException("Patient not found, empty list");
         }
         LOGGER.debug("patient(s) found");
-        return patientPage;
+        return patientList;
     }
 
     /**

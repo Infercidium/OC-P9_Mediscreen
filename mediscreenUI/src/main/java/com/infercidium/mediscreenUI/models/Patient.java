@@ -1,29 +1,22 @@
-package com.infercidium.mediscreenInfo.model;
+package com.infercidium.mediscreenUI.models;
 
-import com.infercidium.mediscreenInfo.constant.Genres;
-import com.infercidium.mediscreenInfo.constant.Result;
+import com.infercidium.mediscreenUI.constants.Genres;
+import com.infercidium.mediscreenUI.constants.Result;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
-@Entity
 @Getter @Setter @NoArgsConstructor
 public class Patient {
 
     /**
      * Attribute id corresponding to id generate.
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer patientId;
     /**
      * Attribute given corresponding to firstName patient.
@@ -57,8 +50,16 @@ public class Patient {
     /**
      * Attribute result corresponding to diabetes result.
      */
-    @Column(columnDefinition = "Result default Result.UNKNOWN")
     private Result result = Result.UNKNOWN;
+
+    /**
+     * Obtain the patient's age by comparing the current date
+     * with his date of birth.
+     * @return age.
+     */
+    public int getAge() {
+        return Math.toIntExact(ChronoUnit.YEARS.between(dob, LocalDate.now()));
+    }
 
     /**
      * ToString method.

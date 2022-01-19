@@ -20,7 +20,6 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/mediscreenUI/pom.xml" />
         <option value="$PROJECT_DIR$/mediscreenInfo/pom.xml" />
         <option value="$PROJECT_DIR$/mediscreenNote/pom.xml" />
         <option value="$PROJECT_DIR$/mediscreenCalcul/pom.xml" />

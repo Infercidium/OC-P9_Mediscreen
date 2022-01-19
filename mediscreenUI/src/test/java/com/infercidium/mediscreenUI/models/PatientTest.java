@@ -1,7 +1,7 @@
-package com.infercidium.mediscreenInfo.model;
+package com.infercidium.mediscreenUI.models;
 
-import com.infercidium.mediscreenInfo.constant.Genres;
-import com.infercidium.mediscreenInfo.constant.Result;
+import com.infercidium.mediscreenUI.constants.Genres;
+import com.infercidium.mediscreenUI.constants.Result;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +25,12 @@ class PatientTest {
         patient.setPhone("phone");
         //SafeTest
         patient.setResult(Result.UNKNOWN);
+    }
+
+    @Test
+    void getAge() {
+        int age = patient.getAge();
+        assertEquals((LocalDate.now().getYear() - 2000), age);
     }
 
     @Test

@@ -11,13 +11,11 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,7 +30,7 @@ class PatientServiceTest {
     PatientService patientService;
 
     Patient patient = new Patient();
-    Page<Patient> patientPage = new PageImpl<>(Collections.singletonList(patient));
+    List<Patient> patientList = Collections.singletonList(patient);
 
     @BeforeEach
     void setUp() {
@@ -69,23 +67,23 @@ class PatientServiceTest {
 
     @Test
     void testGetPatient() {
-        Mockito.when(patientRepository.findByFamilyIgnoreCaseAndGivenIgnoreCase("lastName", "firstName", PageRequest.of(0, 10))).thenReturn(patientPage);
-        Page<Patient> result = patientService.getPatient("lastName", "firstName", PageRequest.of(0, 10));
-        assertEquals(patientPage, result);
+        Mockito.when(patientRepository.findByFamilyIgnoreCaseAndGivenIgnoreCase("lastName", "firstName")).thenReturn(patientList);
+        List<Patient> result = patientService.getPatient("lastName", "firstName");
+        assertEquals(patientList, result);
     }
 
     @Test
     void getPatientList() {
-        Mockito.when(patientRepository.findAll( PageRequest.of(0, 10))).thenReturn(patientPage);
-        Page<Patient> result = patientService.getPatientList(PageRequest.of(0, 10));
-        assertEquals(patientPage, result);
+        Mockito.when(patientRepository.findAll()).thenReturn(patientList);
+        List<Patient> result = patientService.getPatientList();
+        assertEquals(patientList, result);
     }
 
     @Test
     void getFamilyPatient() {
-        Mockito.when(patientRepository.findByFamilyIgnoreCase("lastName", PageRequest.of(0, 10))).thenReturn(patientPage);
-        Page<Patient> result = patientService.getFamilyPatient("lastName", PageRequest.of(0, 10));
-        assertEquals(patientPage, result);
+        Mockito.when(patientRepository.findByFamilyIgnoreCase("lastName")).thenReturn(patientList);
+        List<Patient> result = patientService.getFamilyPatient("lastName");
+        assertEquals(patientList, result);
     }
 
     @Test
