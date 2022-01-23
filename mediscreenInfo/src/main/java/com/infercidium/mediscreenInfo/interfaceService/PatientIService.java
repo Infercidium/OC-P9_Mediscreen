@@ -1,24 +1,26 @@
 package com.infercidium.mediscreenInfo.interfaceService;
 
 import com.infercidium.mediscreenInfo.model.Patient;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface PatientIService {
     //Create
     /**
      * Add a patient in the database.
      * @param patient to add.
+     * @return the save patient.
      */
-    void postPatient(Patient patient);
+    Patient postPatient(Patient patient);
 
     //Update
     /**
      * Update a patient in the database.
      * @param patient to update.
      * @param id to select the patient.
+     * @return the updated patient.
      */
-    void updatePatient(Patient patient, Integer id);
+    Patient updatePatient(Patient patient, Integer id);
 
     //Read
     /**
@@ -32,25 +34,29 @@ public interface PatientIService {
      * Find patient which has similar name.
      * @param family is lastName.
      * @param given is firstName.
-     * @param pageable is current page.
      * @return the selected patient(s).
      */
-    Page<Patient> getPatient(String family, String given, Pageable pageable);
+    List<Patient> getPatient(String family, String given);
 
     /**
      * Find all patients.
-     * @param pageable is current page.
      * @return the list of patients.
      */
-    Page<Patient> getPatientList(Pageable pageable);
+    List<Patient> getPatientList();
 
     /**
      * Find all patients with the lastName.
      * @param family is lastName.
-     * @param pageable is current page.
      * @return the list of patients.
      */
-    Page<Patient> getFamilyPatient(String family, Pageable pageable);
+    List<Patient> getFamilyPatient(String family);
+
+    /**
+     * Find all patients with the lastName.
+     * @param given is lastName.
+     * @return the list of patients.
+     */
+    List<Patient> getGivenPatient(String given);
 
     //Delete
     /**

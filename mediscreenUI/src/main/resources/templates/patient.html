@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Mediscreen-Patient</title>
+</head>
+<body>
+<section class="container py-5">
+    <div class="row">
+        <div class="col">
+            <form action="#" th:action="@{/patientResearch}" method="get" class="form-horizontal">
+                <h3 class="px-5">Mediscreen</h3>
+                <div th:if="${param.noResult}" class="alert alert-danger text-center" style="font-size: medium;">
+                    Aucun Patient trouvé
+                </div>
+                <div th:if="${param.errorParam}" class="alert alert-danger text-center" style="font-size: medium;">
+                    La combinaison Nom et Prénom est obligatoire pour trouver un patient, se référer à l'aide disponible sur la gauche
+                </div>
+                <div class="form-group py-3">
+                    <label for="firstname" class="col-sm-2 control-label">Prénom</label>
+                    <input type="search" name="given" id="firstname" placeholder="Prénom">
+                </div>
+                <div class="form-group py-1">
+                    <label for="lastname" class="col-sm-2 control-label">Nom</label>
+                    <input type="search" name="family" id="lastname" placeholder="Nom">
+                </div>
+                <div class="form-group py-3">
+                    <input type="submit" class="col btn btn-sm btn-outline-dark" value="Rechercher">
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Rechercher un patient
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p>Pour avoir le dossier d'un patient, veuillez entrer toutes les données (prénom et nom) du patient, puis cliquer sur le bouton "Rechercher".</p>
+                            <p>Si plusieurs patients sont trouvés, sélectionnez le patient recherché grâce à sa date de naissance en cliquant dessus.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Rechercher la famille d'un patient
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p>Pour avoir une liste de patients correspondant à une même famille, veuillez seulement entrer le nom du patient, puis cliquer sur "Rechercher".</p>
+                            <p><strong>Attention :</strong> Aucun lien de parenté n'est enregistré dans la base de donnée, des familles homonymes peuvent apparaitre.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Liste de tous les patients
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">Pour avoir la liste de tous les patients, cliquer sur le bouton "Rechercher" sans avoir entré de paramètre.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-2">
+                <a role="button" th:href="@{/patientChange}" href="patientnew.html" class="col btn btn-sm btn-outline-dark">Nouveau Patient</a>
+                <a role="button" th:href="@{/}" href="research.html" class="col btn btn-sm btn-outline-dark">Clear</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container py-5">
+    <table>
+        <tbody>
+            <tr>
+                <th class="text-end" scope="row">Nom : </th>
+                <td th:text="${patient.family}">Exemple Nom</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th class="text-end" scope="row">Prénom : </th>
+                <td th:text="${patient.given}">Exemple Prénom</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th class="text-end" scope="row">Genre : </th>
+                <td th:text="${patient.sex}">Exemple Genre</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th class="text-end" scope="row">Date de naissance : </th>
+                <td th:text="${#temporals.format(patient.dob, 'dd/MM/yyyy')} +' '+'('+ ${patient.age}+')'">Exemple Ddn (age)</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th class="text-end" scope="row">Adresse : </th>
+                <td th:text="${patient.address}">Exemple Adresse</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th class="text-end" scope="row">Téléphone : </th>
+                <td th:text="${patient.phone}">Exemple Téléphone</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th class="text-end" scope="row">Résultat : </th>
+                <td th:text="${patient.result}">Exemple Résultat</td>
+                <td>
+                    <input type="button" value="Calculer">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a role="button" th:href="@{/patientChange?id={id}(id=${patient.patientId})}" href="#" class="col btn btn-sm btn-outline-primary">Modifier</a>
+    <button type="button" class="col btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Supprimer</button>
+</section>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" th:text="'Supprimer ' + ${patient.given} + ' ' + ${patient.family} + ' ?'" id="exampleModalLabel">Supprimer Patient ?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="col btn btn-sm btn-outline-dark" data-bs-dismiss="modal">Annuler</button>
+                <a role="button" th:href="@{/patientDelete?id={id}(id=${patient.patientId})}" href="research.html" class="col btn btn-sm btn-outline-danger">Valider</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

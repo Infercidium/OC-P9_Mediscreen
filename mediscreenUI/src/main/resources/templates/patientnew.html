@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Mediscreen-New_Patient</title>
+</head>
+<body>
+    <section class="container">
+        <h5 class="modal-title pt-4" id="Log-off">Nouveau Patient</h5>
+        <form class="pb-5 form-horizontal" th:action="@{/validatenew}" th:object="${patient}" method="post">
+            <div class="row">
+                <div class="col row form-group">
+                    <label for="given" class="control-label">Prénom</label>
+                    <input type="text" id="given" th:field="*{given}" name="given" placeholder="Prénom">
+                    <p class="text-danger" th:if="${#fields.hasErrors('given')}" th:errors="*{given}"></p>
+                </div>
+                <div class="col-1"></div>
+                <div class="col row form-group">
+                    <label for="family" class="control-label">Nom</label>
+                    <input type="text" id="family" th:field="*{family}" name="family" placeholder="Nom">
+                    <p class="text-danger" th:if="${#fields.hasErrors('family')}" th:errors="*{family}"></p>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col row form-group">
+                    <label for="genre" class="control-label">Genre</label>
+                    <select class="form-select" aria-label="Default select example" th:field="*{sex}" name="sex" id="genre">
+                        <option value="" selected>Choix</option>
+                        <option value="M">Homme</option>
+                        <option value="F">Femme</option>
+                    </select>
+                    <p class="text-danger" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></p>
+                </div>
+                <div class="col-1"></div>
+                <div class="col row form-group">
+                    <label for="birthday" class="control-label">Date de naissance</label>
+                    <input type="date" id="birthday" th:value="${#temporals.format(patient.dob, 'yyyy-MM-dd')}" name="dob" placeholder="Date de naissance">
+                    <p class="text-danger" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></p>
+                </div>
+                    <div class="row my-4 form-group">
+                        <label for="address" class="col control-label">Adresse</label>
+                        <input type="text" id="address" th:field="*{address}" name="address" placeholder="Adresse">
+                    </div>
+                    <div class="row my-4 form-group">
+                        <label for="phone" class="col control-label">Téléphone</label>
+                        <input type="tel" id="phone" th:field="*{phone}" name="phone" placeholder="Téléphone">
+                    </div>
+                <div class="row my-4 form-group">
+                    <a class="col-6"></a>
+                    <input type="submit" class="col btn btn-sm btn-outline-success" value="Valider">
+                    <a role="button" th:href="@{/}" href="research.html" class="col btn btn-sm btn-outline-warning mx-2">Annuler</a>
+                </div>
+            </div>
+        </form>
+    </section>
+</body>
+</html>
