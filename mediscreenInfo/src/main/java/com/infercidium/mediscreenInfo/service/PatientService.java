@@ -29,23 +29,27 @@ public class PatientService implements PatientIService {
     /**
      * Add a patient in the database.
      * @param patient to add.
+     * @return the save patient.
      */
     @Override
-    public void postPatient(final Patient patient) {
-        patientR.save(patient);
+    public Patient postPatient(final Patient patient) {
+        Patient save = patientR.save(patient);
         LOGGER.debug("patient save");
+        return save;
     }
 
     /**
      * Update a patient in the database.
      * @param patient to update.
-     * @param id      to select the patient.
+     * @param id to select the patient.
+     * @return the updated patient.
      */
     @Override
-    public void updatePatient(final Patient patient, final Integer id) {
+    public Patient updatePatient(final Patient patient, final Integer id) {
         patient.setPatientId(id);
-        patientR.save(patient);
+        Patient save = patientR.save(patient);
         LOGGER.debug("patient update");
+        return save;
     }
 
     /**
@@ -102,6 +106,22 @@ public class PatientService implements PatientIService {
     public List<Patient> getFamilyPatient(final String family) {
         List<Patient> patientList
                 = patientR.findByFamilyIgnoreCase(family);
+        if (patientList.isEmpty()) {
+            throw new NullPointerException("Patient not found, empty list");
+        }
+        LOGGER.debug("patient(s) found");
+        return patientList;
+    }
+
+    /**
+     * Find all patients with the lastName.
+     * @param given is lastName.
+     * @return the list of patients.
+     */
+    @Override
+    public List<Patient> getGivenPatient(final String given) {
+        List<Patient> patientList
+                = patientR.findByGivenIgnoreCase(given);
         if (patientList.isEmpty()) {
             throw new NullPointerException("Patient not found, empty list");
         }

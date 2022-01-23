@@ -88,11 +88,16 @@
         </tr>
         </thead>
         <tbody>
-            <tr th:each="patient : ${patientList}" role="button" th:action="@{/patientChosen?id={id}(id=${patient.patientId}}">
+            <tr th:each="patient : ${patientList}" role="button" th:action="@{/patient?id={id}(id=${patient.patientId}}">
                 <td th:text="${patient.family}">Nom</td>
                 <td th:text="${patient.given}">Prénom</td>
                 <td th:text="${#temporals.format(patient.dob, 'dd/MM/yyyy')} +' '+'('+ ${patient.age}+')'">jj/mm/aaaa</td>
                 <td th:text="${patient.result}">Resultat</td>
+                <td>
+                    <a role="button" th:href="@{/patient?id={id}(id=${patient.patientId})}" href="#" class="col btn btn-sm btn-outline-success">Voir</a>
+                    <a role="button" th:href="@{/patientChange?id={id}(id=${patient.patientId})}" href="#" class="col btn btn-sm btn-outline-primary">Modifier</a>
+                    <button type="button" class="col btn btn-sm btn-outline-danger" data-bs-toggle="modal" th:attr="data-bs-target=${'#modal' + patient.patientId}">Supprimer</button>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -115,5 +120,19 @@
         </ul>
     </nav>
 </section>
+<!-- Modal -->
+<div class="modal fade" th:each="patient : ${patientList}" th:attr="id='modal' + ${patient.patientId}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" th:text="'Supprimer ' + ${patient.given} + ' ' + ${patient.family} + ' ?'" id="exampleModalLabel">Supprimer Patient ?</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="col btn btn-sm btn-outline-dark" data-bs-dismiss="modal">Annuler</button>
+                <a role="button" th:href="@{/patientDelete?id={id}(id=${patient.patientId})}" href="research.html" class="col btn btn-sm btn-outline-danger">Valider</a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -9,16 +9,18 @@ public interface PatientIService {
     /**
      * Add a patient in the database.
      * @param patient to add.
+     * @return the save patient.
      */
-    void postPatient(Patient patient);
+    Patient postPatient(Patient patient);
 
     //Update
     /**
      * Update a patient in the database.
      * @param patient to update.
      * @param id to select the patient.
+     * @return the updated patient.
      */
-    void updatePatient(Patient patient, Integer id);
+    Patient updatePatient(Patient patient, Integer id);
 
     //Read
     /**
@@ -48,6 +50,13 @@ public interface PatientIService {
      * @return the list of patients.
      */
     List<Patient> getFamilyPatient(String family);
+
+    /**
+     * Find all patients with the lastName.
+     * @param given is lastName.
+     * @return the list of patients.
+     */
+    List<Patient> getGivenPatient(String given);
 
     //Delete
     /**

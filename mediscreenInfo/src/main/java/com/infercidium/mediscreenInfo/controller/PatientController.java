@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -32,31 +33,35 @@ public class PatientController {
     /**
      * Add patient to the database.
      * @param patient to add.
+     * @return the save patient.
      */
     @PostMapping("/add")
-    public void addPatient(@RequestParam final Patient patient) {
-        patientS.postPatient(patient);
+    public Patient addPatient(@RequestBody final Patient patient) {
+        Patient save = patientS.postPatient(patient);
         LOGGER.info("Patient Save");
+        return save;
     }
 
     /**
      * Update patient to the database.
      * @param id of patient.
      * @param patient with new information.
+     * @return the updated patient.
      */
-    @PostMapping("/update{id}")
-    public void updatePatient(@PathVariable final int id,
-                              @RequestParam final Patient patient) {
-        patientS.updatePatient(patient, id);
+    @PutMapping("/update/{id}")
+    public Patient updatePatient(@PathVariable final int id,
+                              @RequestBody final Patient patient) {
+        Patient update = patientS.updatePatient(patient, id);
         LOGGER.info("Patient Update");
+        return update;
     }
 
     /**
      * Remove patient of the database.
      * @param id of patient.
      */
-    @DeleteMapping("/remove")
-    public void removePatient(@RequestParam final int id) {
+    @DeleteMapping("/remove/{id}")
+    public void removePatient(@PathVariable final int id) {
         patientS.deletePatient(id);
         LOGGER.info("Patient removed");
     }
@@ -95,6 +100,18 @@ public class PatientController {
     @GetMapping("/family/{family}")
     public List<Patient> getPatientFamily(@PathVariable final String family) {
         List<Patient> patientList = patientS.getFamilyPatient(family);
+        LOGGER.info("Patient(s) Found");
+        return patientList;
+    }
+
+    /**
+     * Return the patient with the same database firstName.
+     * @param given is firsName.
+     * @return patientList.
+     */
+    @GetMapping("/given/{given}")
+    public List<Patient> getPatientGiven(@PathVariable final String given) {
+        List<Patient> patientList = patientS.getGivenPatient(given);
         LOGGER.info("Patient(s) Found");
         return patientList;
     }

@@ -1,7 +1,7 @@
 package com.infercidium.mediscreenInfo.service;
 
-import com.infercidium.mediscreenInfo.constant.Genres;
-import com.infercidium.mediscreenInfo.constant.Result;
+import com.infercidium.mediscreenInfo.constants.Genres;
+import com.infercidium.mediscreenInfo.constants.Result;
 import com.infercidium.mediscreenInfo.model.Patient;
 import com.infercidium.mediscreenInfo.repository.PatientRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -83,6 +83,13 @@ class PatientServiceTest {
     void getFamilyPatient() {
         Mockito.when(patientRepository.findByFamilyIgnoreCase("lastName")).thenReturn(patientList);
         List<Patient> result = patientService.getFamilyPatient("lastName");
+        assertEquals(patientList, result);
+    }
+
+    @Test
+    void getGivenPatient() {
+        Mockito.when(patientRepository.findByGivenIgnoreCase("firstName")).thenReturn(patientList);
+        List<Patient> result = patientService.getGivenPatient("firstName");
         assertEquals(patientList, result);
     }
 

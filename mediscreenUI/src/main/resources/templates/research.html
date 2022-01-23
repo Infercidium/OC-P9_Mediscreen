@@ -15,9 +15,6 @@
                 <div th:if="${param.noResult}" class="alert alert-danger text-center" style="font-size: medium;">
                     Aucun Patient trouvé
                 </div>
-                <div th:if="${param.errorParam}" class="alert alert-danger text-center" style="font-size: medium;">
-                    La combinaison Nom et Prénom est obligatoire pour trouver un patient, se référer à l'aide disponible sur la gauche
-                </div>
                 <div class="form-group py-3">
                     <label for="firstname" class="col-sm-2 control-label">Prénom</label>
                     <input type="search" name="given" id="firstname" placeholder="Prénom">
@@ -30,6 +27,9 @@
                     <input type="submit" class="col btn btn-sm btn-outline-dark" value="Rechercher">
                 </div>
             </form>
+            <div th:if="${param.successDelete}" class="alert alert-success text-center" style="font-size: medium;">
+                Patient supprimer
+            </div>
         </div>
         <div class="col">
             <div class="accordion" id="accordionExample">
@@ -49,13 +49,16 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingTwo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Rechercher la famille d'un patient
+                            Rechercher un patient avec un attribut
                         </button>
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
+                            <h6><u>Recherche de la famille d'un patient</u></h6>
                             <p>Pour avoir une liste de patients correspondant à une même famille, veuillez seulement entrer le nom du patient, puis cliquer sur "Rechercher".</p>
                             <p><strong>Attention :</strong> Aucun lien de parenté n'est enregistré dans la base de donnée, des familles homonymes peuvent apparaitre.</p>
+                            <h6><u>Recherche d'un patient par prénom</u></h6>
+                            <p>Pour avoir une liste de patients correspondant à un prénom, veuillez seulement entrer le prénom du patient, puis cliquer sur "Rechercher".</p>
                         </div>
                     </div>
                 </div>

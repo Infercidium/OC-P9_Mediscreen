@@ -23,4 +23,11 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
      * @return a multi-page patientList.
      */
     List<Patient> findByFamilyIgnoreCase(String family);
+
+    /**
+     * Find a list of patient with same lastName in several pages.
+     * @param given is firstName.
+     * @return a multi-page patientList.
+     */
+    List<Patient> findByGivenIgnoreCase(String given);
 }

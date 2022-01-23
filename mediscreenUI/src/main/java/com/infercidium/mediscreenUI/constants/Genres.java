@@ -10,6 +10,9 @@ public enum Genres {
      */
     F("F");
 
-    Genres(String f) {
-    }
+    /**
+     * The enumeration's base constructor.
+     * @param value of the enumeration.
+     */
+    Genres(final String value) { }
 }

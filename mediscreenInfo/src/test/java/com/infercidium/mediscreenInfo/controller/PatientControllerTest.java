@@ -1,7 +1,7 @@
 package com.infercidium.mediscreenInfo.controller;
 
-import com.infercidium.mediscreenInfo.constant.Genres;
-import com.infercidium.mediscreenInfo.constant.Result;
+import com.infercidium.mediscreenInfo.constants.Genres;
+import com.infercidium.mediscreenInfo.constants.Result;
 import com.infercidium.mediscreenInfo.interfaceService.PatientIService;
 import com.infercidium.mediscreenInfo.model.Patient;
 import org.junit.jupiter.api.BeforeEach;
@@ -81,6 +81,13 @@ class PatientControllerTest {
     void getPatientFamily() {
         Mockito.when(patientIService.getFamilyPatient("lastName")).thenReturn(patientList);
         List<Patient> result = patientController.getPatientFamily("lastName");
+        assertEquals(patientList, result);
+    }
+
+    @Test
+    void getPatientGiven() {
+        Mockito.when(patientIService.getGivenPatient("firstName")).thenReturn(patientList);
+        List<Patient> result = patientController.getPatientGiven("firstName");
         assertEquals(patientList, result);
     }
 

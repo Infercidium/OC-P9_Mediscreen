@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="m-2">
-                <a role="button" th:href="@{/patientChange?id={id}(id=${patient.patientId})}" href="patientnew.html" class="col btn btn-sm btn-outline-dark">Nouveau Patient</a>
+                <a role="button" th:href="@{/patientChange}" href="patientnew.html" class="col btn btn-sm btn-outline-dark">Nouveau Patient</a>
                 <a role="button" th:href="@{/}" href="research.html" class="col btn btn-sm btn-outline-dark">Clear</a>
             </div>
         </div>
@@ -119,7 +119,7 @@
             </tr>
         </tbody>
     </table>
-    <a role="button" th:href="@{/patientChange/{id}(id=${patient.patientId})}" href="#" class="col btn btn-sm btn-outline-primary">Modifier</a>
+    <a role="button" th:href="@{/patientChange?id={id}(id=${patient.patientId})}" href="#" class="col btn btn-sm btn-outline-primary">Modifier</a>
     <button type="button" class="col btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Supprimer</button>
 </section>
 <!-- Modal -->
@@ -131,7 +131,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="col btn btn-sm btn-outline-dark" data-bs-dismiss="modal">Annuler</button>
-                <button type="button" class="col btn btn-sm btn-outline-danger">Valider</button>
+                <a role="button" th:href="@{/patientDelete?id={id}(id=${patient.patientId})}" href="research.html" class="col btn btn-sm btn-outline-danger">Valider</a>
             </div>
         </div>
     </div>
