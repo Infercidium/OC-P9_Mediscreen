@@ -28,7 +28,7 @@ public class PatientController {
      * Instantiation of PatientInterfaceService.
      */
     @Autowired
-    private PatientIService patientS;
+    private PatientIService patientIService;
 
     /**
      * Add patient to the database.
@@ -37,7 +37,7 @@ public class PatientController {
      */
     @PostMapping("/patient/add")
     public Patient addPatient(@RequestBody final Patient patient) {
-        Patient save = patientS.postPatient(patient);
+        Patient save = patientIService.postPatient(patient);
         LOGGER.info("Patient Save");
         return save;
     }
@@ -51,7 +51,7 @@ public class PatientController {
     @PutMapping("/patient/update/{id}")
     public Patient updatePatient(@PathVariable final int id,
                               @RequestBody final Patient patient) {
-        Patient update = patientS.updatePatient(patient, id);
+        Patient update = patientIService.updatePatient(patient, id);
         LOGGER.info("Patient Update");
         return update;
     }
@@ -62,7 +62,7 @@ public class PatientController {
      */
     @DeleteMapping("/patient/remove/{id}")
     public void removePatient(@PathVariable final int id) {
-        patientS.deletePatient(id);
+        patientIService.deletePatient(id);
         LOGGER.info("Patient removed");
     }
 
@@ -73,7 +73,7 @@ public class PatientController {
      */
     @GetMapping("/patient/{id}")
     public Patient getPatient(@PathVariable final int id) {
-        Patient patient = patientS.getPatient(id);
+        Patient patient = patientIService.getPatient(id);
         LOGGER.info("Patient Found");
         return patient;
     }
@@ -87,7 +87,7 @@ public class PatientController {
     @GetMapping("/patient/{family}/{given}")
     public List<Patient> getPatientName(@PathVariable final String family,
                                         @PathVariable final String given) {
-        List<Patient> patientList = patientS.getPatient(family, given);
+        List<Patient> patientList = patientIService.getPatient(family, given);
         LOGGER.info("Patient(s) Found");
         return patientList;
     }
@@ -99,7 +99,7 @@ public class PatientController {
      */
     @GetMapping("/patient/family/{family}")
     public List<Patient> getPatientFamily(@PathVariable final String family) {
-        List<Patient> patientList = patientS.getFamilyPatient(family);
+        List<Patient> patientList = patientIService.getFamilyPatient(family);
         LOGGER.info("Patient(s) Found");
         return patientList;
     }
@@ -111,7 +111,7 @@ public class PatientController {
      */
     @GetMapping("/patient/given/{given}")
     public List<Patient> getPatientGiven(@PathVariable final String given) {
-        List<Patient> patientList = patientS.getGivenPatient(given);
+        List<Patient> patientList = patientIService.getGivenPatient(given);
         LOGGER.info("Patient(s) Found");
         return patientList;
     }
@@ -122,7 +122,7 @@ public class PatientController {
      */
     @GetMapping("/patient/all")
     public List<Patient> getPatientList() {
-        List<Patient> patientList = patientS.getPatientList();
+        List<Patient> patientList = patientIService.getPatientList();
         LOGGER.info("PatientList Found");
         return patientList;
     }
