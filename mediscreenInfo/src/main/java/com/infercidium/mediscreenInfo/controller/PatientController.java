@@ -35,7 +35,7 @@ public class PatientController {
      * @param patient to add.
      * @return the save patient.
      */
-    @PostMapping("/add")
+    @PostMapping("/patient/add")
     public Patient addPatient(@RequestBody final Patient patient) {
         Patient save = patientS.postPatient(patient);
         LOGGER.info("Patient Save");
@@ -48,7 +48,7 @@ public class PatientController {
      * @param patient with new information.
      * @return the updated patient.
      */
-    @PutMapping("/update/{id}")
+    @PutMapping("/patient/update/{id}")
     public Patient updatePatient(@PathVariable final int id,
                               @RequestBody final Patient patient) {
         Patient update = patientS.updatePatient(patient, id);
@@ -60,7 +60,7 @@ public class PatientController {
      * Remove patient of the database.
      * @param id of patient.
      */
-    @DeleteMapping("/remove/{id}")
+    @DeleteMapping("/patient/remove/{id}")
     public void removePatient(@PathVariable final int id) {
         patientS.deletePatient(id);
         LOGGER.info("Patient removed");
@@ -97,7 +97,7 @@ public class PatientController {
      * @param family is lastName.
      * @return patientList.
      */
-    @GetMapping("/family/{family}")
+    @GetMapping("/patient/family/{family}")
     public List<Patient> getPatientFamily(@PathVariable final String family) {
         List<Patient> patientList = patientS.getFamilyPatient(family);
         LOGGER.info("Patient(s) Found");
@@ -109,7 +109,7 @@ public class PatientController {
      * @param given is firsName.
      * @return patientList.
      */
-    @GetMapping("/given/{given}")
+    @GetMapping("/patient/given/{given}")
     public List<Patient> getPatientGiven(@PathVariable final String given) {
         List<Patient> patientList = patientS.getGivenPatient(given);
         LOGGER.info("Patient(s) Found");
@@ -120,7 +120,7 @@ public class PatientController {
      * Return all the patients from the database.
      * @return patientList.
      */
-    @GetMapping("/all")
+    @GetMapping("/patient/all")
     public List<Patient> getPatientList() {
         List<Patient> patientList = patientS.getPatientList();
         LOGGER.info("PatientList Found");

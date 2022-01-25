@@ -43,7 +43,7 @@ public class InfoProxy {
      * @return patient list.
      */
     public List<Patient> getListFamilyPatient(final String family) {
-        return infoClient.get().uri("/family/{family}", family)
+        return infoClient.get().uri("/patient/family/{family}", family)
                 .retrieve().bodyToFlux(Patient.class).collectList().block();
     }
 
@@ -53,7 +53,7 @@ public class InfoProxy {
      * @return patient list.
      */
     public List<Patient> getListGivenPatient(final String given) {
-        return infoClient.get().uri("/given/{given}", given)
+        return infoClient.get().uri("/patient/given/{given}", given)
                 .retrieve().bodyToFlux(Patient.class).collectList().block();
     }
 
@@ -62,7 +62,7 @@ public class InfoProxy {
      * @return patient list.
      */
     public List<Patient> getAllPatient() {
-        return infoClient.get().uri("/all")
+        return infoClient.get().uri("/patient/all")
                 .retrieve().bodyToFlux(Patient.class).collectList().block();
     }
 
@@ -82,7 +82,7 @@ public class InfoProxy {
      * @return patient add.
      */
     public Patient addPatient(final Patient patient) {
-       return infoClient.post().uri("/add").bodyValue(patient)
+       return infoClient.post().uri("/patient/add").bodyValue(patient)
                .retrieve().bodyToMono(Patient.class).block();
     }
 
@@ -93,7 +93,7 @@ public class InfoProxy {
      * @return patient edit.
      */
     public Patient updatePatient(final Patient patient, final int id) {
-       return infoClient.put().uri("/update/{id}", id).bodyValue(patient)
+       return infoClient.put().uri("/patient/update/{id}", id).bodyValue(patient)
                .retrieve().bodyToMono(Patient.class).block();
     }
 
@@ -103,7 +103,7 @@ public class InfoProxy {
      * @return NOTHING.
      */
     public Void removePatient(final int id) {
-       return infoClient.delete().uri("/remove/{id}", id)
+       return infoClient.delete().uri("/patient/remove/{id}", id)
                .retrieve().bodyToMono(Void.class).block();
        //TODO A VOIR (Pas Satisfaisant)
     }
