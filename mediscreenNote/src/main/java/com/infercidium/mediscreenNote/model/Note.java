@@ -21,7 +21,7 @@ public class Note {
      * The id attribute corresponds to the generated id of the note.
      */
     @Id
-    private Integer noteId;
+    private String noteId;
 
     /**
      * The note attribute corresponds to the note-taking date.
@@ -36,7 +36,8 @@ public class Note {
     private int patId;
 
     /**
-     * The patient attribute corresponds to the name of the patient linked to the note.
+     * The patient attribute corresponds to the name
+     * of the patient linked to the note.
      */
     @NotBlank
     @Field(name = "Patient")

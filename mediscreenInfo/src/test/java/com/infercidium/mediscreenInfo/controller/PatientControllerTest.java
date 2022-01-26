@@ -19,7 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
+@SpringBootTest(classes = {PatientController.class})
 @RunWith(SpringRunner.class)
 class PatientControllerTest {
 

@@ -9,25 +9,25 @@ import java.util.List;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
     /**
-     * Find a list of patient with same name in several pages.
+     * Find a list of patient with same name.
      * @param family is lastName.
      * @param given is firstName.
-     * @return a multi-page patientList.
+     * @return patientList.
      */
     List<Patient> findByFamilyIgnoreCaseAndGivenIgnoreCase(String family,
                                                            String given);
 
     /**
-     * Find a list of patient with same lastName in several pages.
+     * Find a list of patient with same lastName.
      * @param family is lastName.
-     * @return a multi-page patientList.
+     * @return patientList.
      */
     List<Patient> findByFamilyIgnoreCase(String family);
 
     /**
-     * Find a list of patient with same lastName in several pages.
+     * Find a list of patient with same firstName.
      * @param given is firstName.
-     * @return a multi-page patientList.
+     * @return patientList.
      */
     List<Patient> findByGivenIgnoreCase(String given);
 }

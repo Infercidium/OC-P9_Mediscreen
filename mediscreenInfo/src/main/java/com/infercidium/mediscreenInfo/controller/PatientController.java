@@ -63,7 +63,7 @@ public class PatientController {
     @DeleteMapping("/patient/remove/{id}")
     public void removePatient(@PathVariable final int id) {
         patientIService.deletePatient(id);
-        LOGGER.info("Patient removed");
+        LOGGER.info("Patient Removed");
     }
 
     /**
