@@ -1,10 +1,10 @@
 version: "3.3"
 
 services:
-  mediscreen_UI:
+  mediscreen_ui:
     container_name: ui
     depends_on:
-      - mediscreen_Info
+      - mediscreen_info
     build: mediscreenUI/.
     ports:
       - "8080:8080"
@@ -12,9 +12,9 @@ services:
       - INFO_URL=http://info:8081
     networks:
       mediscreen_net:
-        - ipv4_address: 172.40.2.1
+        ipv4_address: 172.40.2.1
 
-  mediscreen_Info:
+  mediscreen_info:
     container_name: info
     depends_on:
       - mediscreen_db_sql
@@ -22,24 +22,26 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - SPRING_DATASOURCE_URL=sql:3306
-      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_URL=jdbc:mysql://172.40.2.3:3306/mediscreen
+      - SPRING_DATASOURCE_USERNAME=doctor
       - SPRING_DATASOURCE_PASSWORD=rootroot
     networks:
       mediscreen_net:
-        - ipv4_address: 172.40.2.2
+        ipv4_address: 172.40.2.2
 
   mediscreen_db_sql:
     container_name: sql
-    image:  mysql:latest
-    volumes:
-      - db_data:/var/lib/mysql
-    restart: always
+    image:  mysql:5.7
+    ports:
+      - "3307:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=rootroot
       - MYSQL_DATABASE=mediscreen
-      - MYSQL_USER=root
+      - MYSQL_USER=doctor
       - MYSQL_PASSWORD=rootroot
+    networks:
+      mediscreen_net:
+        ipv4_address: 172.40.2.3
 
 networks:
   mediscreen_net:

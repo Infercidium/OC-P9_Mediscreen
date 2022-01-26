@@ -69,7 +69,7 @@ public class InterfaceController {
                              @RequestParam(defaultValue = "1") final int page) {
         //Generate Page
         Page<Patient> patientPage
-                = paginationIService.pagination(patientList, page);
+                = paginationIService.patientPagination(patientList, page);
         //Contenu
         model.addAttribute("patientList", patientPage.getContent());
         // Count the pages
@@ -95,7 +95,7 @@ public class InterfaceController {
      */
     @RequestMapping("/patient")
     public String patient(final Model model,
-                                @RequestParam final int id) {
+                          @RequestParam final int id){ //todo sprint2
         Patient patient = infoProxy.getPatientId(id);
         model.addAttribute("patient", patient);
         LOGGER.info("Assigned patient");

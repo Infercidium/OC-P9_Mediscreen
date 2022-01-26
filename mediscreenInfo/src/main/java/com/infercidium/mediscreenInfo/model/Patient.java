@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,6 +46,7 @@ public class Patient {
      * Attribute sex corresponding to patient genre.
      */
     @NotNull(message = "genre is mandatory")
+    @Enumerated
     private Genres sex;
     /**
      * Attribute address corresponding to address of patient.
@@ -59,7 +60,7 @@ public class Patient {
     /**
      * Attribute result corresponding to diabetes result.
      */
-    @Column(columnDefinition = "Result default Result.UNKNOWN")
+    @Enumerated
     private Result result = Result.UNKNOWN;
 
     /**
