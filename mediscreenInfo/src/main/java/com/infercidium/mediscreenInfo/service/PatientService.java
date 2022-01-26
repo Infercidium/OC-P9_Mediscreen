@@ -137,6 +137,6 @@ public class PatientService implements PatientIService {
     public void deletePatient(final int id) {
         Patient patient = getPatient(id);
         patientR.delete(patient);
-        LOGGER.debug("Patient remove");
+        LOGGER.debug("patient remove");
     }
 }

@@ -192,6 +192,7 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<finalName>mediscreen_info</finalName>
 	</build>
 
 	<reporting>

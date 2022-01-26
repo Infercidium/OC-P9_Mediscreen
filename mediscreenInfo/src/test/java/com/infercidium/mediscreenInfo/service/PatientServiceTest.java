@@ -24,10 +24,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PatientServiceTest {
 
     @MockBean
-    PatientRepository patientRepository;
+    private PatientRepository patientRepository;
 
     @Autowired
-    PatientService patientService;
+    private PatientService patientService;
 
     Patient patient = new Patient();
     List<Patient> patientList = Collections.singletonList(patient);

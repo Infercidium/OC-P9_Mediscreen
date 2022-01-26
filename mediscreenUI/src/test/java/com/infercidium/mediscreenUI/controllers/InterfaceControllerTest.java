@@ -1,7 +1,6 @@
 package com.infercidium.mediscreenUI.controllers;
 
 import com.infercidium.mediscreenUI.constants.Genres;
-import com.infercidium.mediscreenUI.constants.Pagination;
 import com.infercidium.mediscreenUI.interfaceService.PaginationIService;
 import com.infercidium.mediscreenUI.model.Patient;
 import com.infercidium.mediscreenUI.proxy.InfoProxy;
@@ -13,13 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
