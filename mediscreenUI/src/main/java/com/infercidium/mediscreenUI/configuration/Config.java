@@ -22,4 +22,19 @@ public class Config {
     public WebClient infoClient() {
         return WebClient.create(infoUrlBase);
     }
+
+    /**
+     * Instantiates the mediscreen-note API url.
+     */
+    @Value("${note.url}")
+    private String noteUrlBase;
+
+    /**
+     * Instantiates the WebClient with the url of mediscreen-note.
+     * @return the WebClient usable by the proxy.
+     */
+    @Bean
+    public WebClient noteClient() {
+        return WebClient.create(noteUrlBase);
+    }
 }

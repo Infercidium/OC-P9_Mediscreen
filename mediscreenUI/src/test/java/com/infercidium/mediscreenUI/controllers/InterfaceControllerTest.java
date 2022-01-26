@@ -63,7 +63,7 @@ class InterfaceControllerTest {
     void allPatient() {
         Page<Patient> patientPage = new PageImpl<>(patientList);
         interfaceController.setPatientList(patientList);
-        Mockito.when(paginationIService.pagination(patientList, 1)).thenReturn(patientPage);
+        Mockito.when(paginationIService.patientPagination(patientList, 1)).thenReturn(patientPage);
         String result = interfaceController.allPatient(model, 1);
         assertEquals("patientlist", result);
     }

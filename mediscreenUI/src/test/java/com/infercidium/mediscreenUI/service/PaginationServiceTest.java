@@ -44,7 +44,7 @@ class PaginationServiceTest {
 
     @Test
     void pagination() {
-        Page<Patient> patientPage = paginationService.pagination(patientList, 1);
+        Page<Patient> patientPage = paginationService.patientPagination(patientList, 1);
         assertEquals(patienta, patientPage.getContent().get(0));
         assertEquals(patientList.size(), patientPage.getContent().size());
     }
