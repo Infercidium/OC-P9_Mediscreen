@@ -4,21 +4,21 @@ public enum Result {
     /**
      * Unknown risk of diabetes.
      */
-    UNKNOWN,
+    Unknown,
     /**
      * No risk of diabetes.
      */
-    NONE,
+    None,
     /**
      * Limited risk of diabetes.
      */
-    BORDERLINE,
+    Borderline,
     /**
      * Danger of diabetes.
      */
-    DANGER,
+    Danger,
     /**
      * Early onset of diabetes.
      */
-    EARLY
+    Early
 }

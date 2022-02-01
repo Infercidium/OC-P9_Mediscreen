@@ -5,6 +5,7 @@ import com.infercidium.mediscreenInfo.constants.Result;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -40,6 +41,7 @@ public class Patient {
     /**
      * Attribute dob corresponding to birthday patient.
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @PastOrPresent(message = "date of birthday is mandatory")
     private LocalDate dob; //date of birthday
     /**
@@ -61,7 +63,7 @@ public class Patient {
      * Attribute result corresponding to diabetes result.
      */
     @Enumerated
-    private Result result = Result.UNKNOWN;
+    private Result result = Result.Unknown;
 
     /**
      * ToString method.

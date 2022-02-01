@@ -24,13 +24,13 @@ class PatientTest {
         patient.setAddress("address");
         patient.setPhone("phone");
         //SafeTest
-        patient.setResult(Result.UNKNOWN);
+        patient.setResult(Result.Unknown);
     }
 
     @Test
     void testToString() {
         String result = patient.toString();
-        assertEquals("Patient {patientId = 1, given = 'firstName', family = 'lastName', dob = 2000-01-01, sex = M, address = 'address', phone = 'phone', result = UNKNOWN}", result);
+        assertEquals("Patient {patientId = 1, given = 'firstName', family = 'lastName', dob = 2000-01-01, sex = M, address = 'address', phone = 'phone', result = Unknown}", result);
     }
 
     @Test
@@ -82,7 +82,7 @@ class PatientTest {
 
     @Test
     void getResult() {
-        assertEquals(Result.UNKNOWN, patient.getResult());
+        assertEquals(Result.Unknown, patient.getResult());
     }
 
     @Test
@@ -129,7 +129,7 @@ class PatientTest {
 
     @Test
     void setResult() {
-        patient.setResult(Result.NONE);
-        assertEquals(Result.NONE, patient.getResult());
+        patient.setResult(Result.None);
+        assertEquals(Result.None, patient.getResult());
     }
 }

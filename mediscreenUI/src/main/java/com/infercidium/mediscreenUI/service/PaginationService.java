@@ -2,8 +2,8 @@ package com.infercidium.mediscreenUI.service;
 
 import com.infercidium.mediscreenUI.constants.Pagination;
 import com.infercidium.mediscreenUI.interfaceService.PaginationIService;
-import com.infercidium.mediscreenUI.model.Note;
-import com.infercidium.mediscreenUI.model.Patient;
+import com.infercidium.mediscreenUI.models.Note;
+import com.infercidium.mediscreenUI.models.Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

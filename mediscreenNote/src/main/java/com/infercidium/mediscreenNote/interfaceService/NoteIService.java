@@ -42,4 +42,10 @@ public interface NoteIService {
      * @param id to delete.
      */
     void deleteNote(String id);
+
+    /**
+     * Delete notes related to patient with id matching patId.
+     * @param patId is patient id.
+     */
+    void deleteListNote(int patId);
 }

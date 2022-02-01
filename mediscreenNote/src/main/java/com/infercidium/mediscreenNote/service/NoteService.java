@@ -82,4 +82,15 @@ public class NoteService implements NoteIService {
         noteR.delete(note);
         LOGGER.debug("note remove");
     }
+
+    /**
+     * Delete notes related to patient with id matching patId.
+     * @param patId is patient id.
+     */
+    @Override
+    public void deleteListNote(final int patId) {
+        List<Note> noteList = getPatientNote(patId);
+        noteR.deleteAll(noteList);
+        LOGGER.debug("notes related to the patient are deleted.");
+    }
 }

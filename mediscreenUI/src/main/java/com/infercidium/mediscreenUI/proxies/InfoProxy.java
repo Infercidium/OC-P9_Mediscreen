@@ -1,6 +1,6 @@
-package com.infercidium.mediscreenUI.proxy;
+package com.infercidium.mediscreenUI.proxies;
 
-import com.infercidium.mediscreenUI.model.Patient;
+import com.infercidium.mediscreenUI.models.Patient;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -93,7 +93,8 @@ public class InfoProxy {
      * @return patient edit.
      */
     public Patient updatePatient(final Patient patient, final int id) {
-       return infoClient.put().uri("/patient/update/{id}", id).bodyValue(patient)
+       return infoClient.put().uri("/patient/update/{id}", id)
+               .bodyValue(patient)
                .retrieve().bodyToMono(Patient.class).block();
     }
 

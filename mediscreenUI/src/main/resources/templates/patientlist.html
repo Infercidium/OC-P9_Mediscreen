@@ -12,12 +12,6 @@
         <div class="col">
             <form action="#" th:action="@{/patientResearch}" method="get" class="form-horizontal">
                 <h3 class="px-5">Mediscreen</h3>
-                <div th:if="${param.noResult}" class="alert alert-danger text-center" style="font-size: medium;">
-                    Aucun Patient trouvé
-                </div>
-                <div th:if="${param.errorParam}" class="alert alert-danger text-center" style="font-size: medium;">
-                    La combinaison Nom et Prénom est obligatoire pour trouver un patient, se référer à l'aide disponible sur la gauche
-                </div>
                 <div class="form-group py-3">
                     <label for="firstname" class="col-sm-2 control-label">Prénom</label>
                     <input type="search" name="given" id="firstname" placeholder="Prénom">
@@ -88,13 +82,13 @@
         </tr>
         </thead>
         <tbody>
-            <tr th:each="patient : ${patientList}" role="button" th:action="@{/patient?id={id}(id=${patient.patientId}}">
+            <tr th:each="patient : ${patientList}" role="button" th:action="@{/patient/{id}(id=${patient.patientId}}">
                 <td th:text="${patient.family}">Nom</td>
                 <td th:text="${patient.given}">Prénom</td>
                 <td th:text="${#temporals.format(patient.dob, 'dd/MM/yyyy')} +' '+'('+ ${patient.age}+')'">jj/mm/aaaa</td>
                 <td th:text="${patient.result}">Resultat</td>
                 <td>
-                    <a role="button" th:href="@{/patient?id={id}(id=${patient.patientId})}" href="#" class="col btn btn-sm btn-outline-success">Voir</a>
+                    <a role="button" th:href="@{/patient/{id}(id=${patient.patientId})}" href="#" class="col btn btn-sm btn-outline-success">Voir</a>
                     <a role="button" th:href="@{/patientChange?id={id}(id=${patient.patientId})}" href="#" class="col btn btn-sm btn-outline-primary">Modifier</a>
                     <button type="button" class="col btn btn-sm btn-outline-danger" data-bs-toggle="modal" th:attr="data-bs-target=${'#modal' + patient.patientId}">Supprimer</button>
                 </td>
@@ -128,8 +122,9 @@
                 <h5 class="modal-title" th:text="'Supprimer ' + ${patient.given} + ' ' + ${patient.family} + ' ?'" id="exampleModalLabel">Supprimer Patient ?</h5>
             </div>
             <div class="modal-footer">
+                <div class="col-6"></div>
                 <button type="button" class="col btn btn-sm btn-outline-dark" data-bs-dismiss="modal">Annuler</button>
-                <a role="button" th:href="@{/patientDelete?id={id}(id=${patient.patientId})}" href="research.html" class="col btn btn-sm btn-outline-danger">Valider</a>
+                <a role="button" th:href="@{/patient/delete/{id}(id=${patient.patientId})}" href="research.html" class="col btn btn-sm btn-outline-danger">Valider</a>
             </div>
         </div>
     </div>

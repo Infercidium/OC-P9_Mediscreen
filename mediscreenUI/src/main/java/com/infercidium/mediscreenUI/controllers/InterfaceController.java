@@ -1,14 +1,17 @@
 package com.infercidium.mediscreenUI.controllers;
 
 import com.infercidium.mediscreenUI.interfaceService.PaginationIService;
-import com.infercidium.mediscreenUI.model.Patient;
-import com.infercidium.mediscreenUI.proxy.InfoProxy;
+import com.infercidium.mediscreenUI.models.Note;
+import com.infercidium.mediscreenUI.models.Patient;
+import com.infercidium.mediscreenUI.proxies.InfoProxy;
+import com.infercidium.mediscreenUI.proxies.NoteProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -48,6 +51,12 @@ public class InterfaceController {
      */
     @Autowired
     private InfoProxy infoProxy;
+
+    /**
+     * Instantiation of NoteProxy.
+     */
+    @Autowired
+    private NoteProxy noteProxy;
 
     /**
      * Home page, patient search.
@@ -91,13 +100,34 @@ public class InterfaceController {
      * Selected patient information page.
      * @param model containing the elements to display.
      * @param id of patient.
+     * @param page current to display.
      * @return patient page.
      */
-    @RequestMapping("/patient")
+    @RequestMapping("/patient/{id}")
     public String patient(final Model model,
-                          @RequestParam final int id){ //todo sprint2
+                          @PathVariable final int id,
+                          @RequestParam(defaultValue = "1") final int page) {
+        //Get Patient
         Patient patient = infoProxy.getPatientId(id);
+        //Contenu
         model.addAttribute("patient", patient);
+        //Get Note
+        List<Note> noteList = noteProxy.getPatientNote(patient.getPatientId());
+        //Generate Page
+        Page<Note> notePage = paginationIService.notePagination(noteList, page);
+        //Contenu
+        model.addAttribute("noteList", notePage.getContent());
+        // Count the pages
+        List<Integer> pagecount = new ArrayList<>();
+        for (int i = 0; i < notePage.getTotalPages(); i++) {
+            pagecount.add(i + 1);
+        }
+        //Pagination
+        model.addAttribute("pageCount", pagecount);
+        model.addAttribute("previous", notePage.getNumber());
+        model.addAttribute("currentPage", notePage.getNumber() + 1);
+        model.addAttribute("next", notePage.getNumber() + 2);
+        //Referral to html page
         LOGGER.info("Assigned patient");
         return "patient";
     }

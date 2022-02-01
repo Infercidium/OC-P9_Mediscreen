@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -43,8 +44,14 @@ public class PatientController {
         return save;
     }
 
-    @PostMapping(value = {"/patient/add"}, consumes = {MediaType.APPLICATION_ATOM_XML_VALUE})
-    public Patient addXMLPatient(final Patient patient) {
+    /**
+     * Add patient to the database.
+     * @param patient to add.
+     * @return the save patient.
+     */
+    @PostMapping(value = {"/patient/add"},
+            consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public Patient addURLPatient(@Valid final Patient patient) {
         Patient save = patientIService.postPatient(patient);
         LOGGER.info("Patient Save");
         return save;

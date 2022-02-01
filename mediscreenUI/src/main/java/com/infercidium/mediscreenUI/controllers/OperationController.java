@@ -1,7 +1,11 @@
 package com.infercidium.mediscreenUI.controllers;
 
-import com.infercidium.mediscreenUI.model.Patient;
-import com.infercidium.mediscreenUI.proxy.InfoProxy;
+import com.infercidium.mediscreenUI.constants.Result;
+import com.infercidium.mediscreenUI.models.Note;
+import com.infercidium.mediscreenUI.models.Patient;
+import com.infercidium.mediscreenUI.proxies.AssessProxy;
+import com.infercidium.mediscreenUI.proxies.InfoProxy;
+import com.infercidium.mediscreenUI.proxies.NoteProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +35,18 @@ public class OperationController {
      */
     @Autowired
     private InfoProxy infoProxy;
+
+    /**
+     * Instantiation of NoteProxy.
+     */
+    @Autowired
+    private NoteProxy noteProxy;
+
+    /**
+     * Instantiation of NoteProxy.
+     */
+    @Autowired
+    private AssessProxy assessProxy;
 
     /**
      * Instantiation of InterfaceController.
@@ -70,8 +86,8 @@ public class OperationController {
                         = infoProxy.getPatient(family, given);
                 if (patientList.size() == 1) {
                     LOGGER.debug("Patient found");
-                    model.addAttribute("patient", patientList.get(0));
-                    return "patient";
+                    return "redirect:/patient/"
+                            + patientList.get(0).getPatientId();
                 }
             }
             interfaceController.setPatientList(patientList);
@@ -88,9 +104,10 @@ public class OperationController {
      * @param id of patient.
      * @return the deletion validation page.
      */
-    @GetMapping("/patientDelete")
-    public String patientDelete(@RequestParam final int id) {
+    @GetMapping("/patient/delete/{id}")
+    public String patientDelete(@PathVariable final int id) {
         infoProxy.removePatient(id);
+        noteProxy.deleteNotes(id);
         LOGGER.info("Deletion of patient successful");
         return "redirect:/?successDelete";
     }
@@ -111,9 +128,8 @@ public class OperationController {
             return "patientnew";
         }
         Patient savePatient = infoProxy.addPatient(patient);
-        model.addAttribute("patient", savePatient);
         LOGGER.info("New patient created");
-        return "patient";
+        return "redirect:/patient/" + savePatient.getPatientId();
     }
 
     /**
@@ -136,8 +152,74 @@ public class OperationController {
             return "patientupdate";
         }
         Patient updatePatient = infoProxy.updatePatient(patient, id);
-        model.addAttribute("patient", updatePatient);
         LOGGER.info("Patient updated");
-        return "patient";
+        return "redirect:/patient/" + updatePatient.getPatientId();
+    }
+//Note
+
+    /**
+     * Verifies the note and adds it to the database.
+     * @param note to add.
+     * @param result to error validation.
+     * @param patId is patient id.
+     * @return patient page.
+     */
+    @PostMapping("validateNewNote/{patId}")
+    public String validateNewNote(@Valid final Note note,
+                                  final BindingResult result,
+                                  @PathVariable final int patId) {
+        if (result.hasErrors()) {
+            LOGGER.info("Error detected, new note cancel");
+            return "redirect:/patient/" + patId + "?errorNote";
+        }
+        noteProxy.addNote(note);
+        LOGGER.info("New note created");
+        return "redirect:/patient/" + patId;
+    }
+
+    /**
+     * Checks the patient and modifies it in the database.
+     * @param note to update.
+     * @param result to error validation.
+     * @param patId is patient id.
+     * @param id of note.
+     * @return patient page.
+     */
+    @PostMapping("validateUpdateNote/{patId}")
+    public String validateUpdateNote(@Valid final Note note,
+                                     final BindingResult result,
+                                     @PathVariable final int patId,
+                                     @RequestParam final String id) {
+        if (result.hasErrors()) {
+            LOGGER.info("Error detected, new note cancel");
+            return "redirect:/patient/" + patId + "?errorNote";
+        }
+        noteProxy.updateNote(note, id);
+        LOGGER.info("Note updated");
+        return "redirect:/patient/" + patId;
+    }
+
+    /**
+     * Request to delete a note.
+     * @param id of note.
+     * @return the deletion validation page.
+     */
+    @GetMapping("/patHistory/delete/{id}")
+    public String noteDelete(@PathVariable final String id) {
+        Note note = noteProxy.getNote(id);
+        noteProxy.deleteNote(id);
+        LOGGER.info("Deletion of note successful");
+        return "redirect:/patient/" + note.getPatId() + "?successDelete";
+    }
+
+    /**
+     * Request to assess patient report.
+     * @param id of patient.
+     * @return the assess patient page.
+     */
+    @GetMapping("assess/patient/{id}")
+    public String assessPatient(@PathVariable final  int id) {
+        Result result = assessProxy.getPatientResult(id);
+        return "redirect:/patient/" + id + "?" + result.name();
     }
 }
