@@ -53,7 +53,7 @@ public class Note {
     /**
      * The attribute doctor corresponds to the physician author of the note.
      */
-    private String doctor;
+    private String doctor = "Inconnu";
 
     /**
      * ToString method.

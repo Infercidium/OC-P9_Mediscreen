@@ -5,11 +5,15 @@ services:
     container_name: ui
     depends_on:
       - mediscreen_info
+      - mediscreen_note
+      - mediscreen_assess
     build: mediscreenUI/.
     ports:
       - "8083:8083"
     environment:
       - INFO_URL=http://info:8081
+      - NOTE_URL=http://note:8082
+      - ASSESS_URL=http://assess:8080
     networks:
       mediscreen_net:
         ipv4_address: 172.40.2.1
@@ -41,6 +45,49 @@ services:
     networks:
       mediscreen_net:
         ipv4_address: 172.40.2.3
+
+  mediscreen_note:
+    container_name: note
+    depends_on:
+      - mediscreen_db_mongodb
+    build: mediscreenNote/.
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE=admin
+      - SPRING_DATA_MONGODB_DATABASE=mediscreen
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_HOST=mongodb
+    networks:
+      mediscreen_net:
+        ipv4_address: 172.40.2.4
+
+  mediscreen_db_mongodb:
+    container_name: mongodb
+    image: 'mongo:5.0'
+    environment:
+      - MONGO_INITDB_DATABASE=mediscreen
+    ports:
+      - "27018:27017"
+    networks:
+      mediscreen_net:
+        ipv4_address: 172.40.2.5
+
+  mediscreen_assess:
+    container_name: assess
+    depends_on:
+      - mediscreen_info
+      - mediscreen_note
+    build: mediscreenCalcul/.
+    ports:
+      - "8080:8080"
+    environment:
+      - INFO_URL=http://info:8081
+      - NOTE_URL=http://note:8082
+    networks:
+      mediscreen_net:
+        ipv4_address: 172.40.2.6
+
 
 networks:
   mediscreen_net:

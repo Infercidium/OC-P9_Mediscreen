@@ -15,6 +15,15 @@
                 <div th:if="${param.noResult}" class="alert alert-danger text-center" style="font-size: medium;">
                     Aucun Patient trouvé
                 </div>
+                <div th:if="${param.noConnectI}" class="alert alert-danger text-center" style="font-size: medium;">
+                    Connection à Mediscreen-Info non disponible
+                </div>
+                <div th:if="${param.noConnectN}" class="alert alert-danger text-center" style="font-size: medium;">
+                    Connection à Mediscreen-Note non disponible
+                </div>
+                <div th:if="${param.noConnectC}" class="alert alert-danger text-center" style="font-size: medium;">
+                    Connection à Mediscreen-Calcul non disponible
+                </div>
                 <div class="form-group py-3">
                     <label for="firstname" class="col-sm-2 control-label">Prénom</label>
                     <input type="search" name="given" id="firstname" placeholder="Prénom">

@@ -41,6 +41,7 @@ class NoteServiceTest {
         note.setPatId(1);
 
         Mockito.when(noteRepository.findById("1")).thenReturn(Optional.ofNullable(note));
+        Mockito.when(noteRepository.findByPatId(1)).thenReturn(noteList);
     }
 
     @Test
@@ -63,7 +64,6 @@ class NoteServiceTest {
 
     @Test
     void getPatientNote() {
-        Mockito.when(noteRepository.findByPatId(1)).thenReturn(noteList);
         List<Note> result = noteService.getPatientNote(1);
         assertEquals(noteList, result);
     }
@@ -72,5 +72,11 @@ class NoteServiceTest {
     void deleteNote() {
         noteService.deleteNote("1");
         Mockito.verify(noteRepository, Mockito.times(1)).delete(note);
+    }
+
+    @Test
+    void deleteListNote() {
+        noteService.deleteListNote(1);
+        Mockito.verify(noteRepository, Mockito.times(1)).deleteAll(noteList);
     }
 }

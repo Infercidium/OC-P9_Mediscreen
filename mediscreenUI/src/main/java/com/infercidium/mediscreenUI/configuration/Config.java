@@ -37,4 +37,19 @@ public class Config {
     public WebClient noteClient() {
         return WebClient.create(noteUrlBase);
     }
+
+    /**
+     * Instantiates the mediscreen-Calcul API url.
+     */
+    @Value("${assess.url}")
+    private String assessUrlBase;
+
+    /**
+     * Instantiates the WebClient with the url of mediscreen-calcul.
+     * @return the WebClient usable by the proxy.
+     */
+    @Bean
+    public WebClient assessClient() {
+        return WebClient.create(assessUrlBase);
+    }
 }

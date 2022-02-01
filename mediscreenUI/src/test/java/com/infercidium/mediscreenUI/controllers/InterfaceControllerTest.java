@@ -2,25 +2,31 @@ package com.infercidium.mediscreenUI.controllers;
 
 import com.infercidium.mediscreenUI.constants.Genres;
 import com.infercidium.mediscreenUI.interfaceService.PaginationIService;
-import com.infercidium.mediscreenUI.model.Patient;
-import com.infercidium.mediscreenUI.proxy.InfoProxy;
+import com.infercidium.mediscreenUI.models.Note;
+import com.infercidium.mediscreenUI.models.Patient;
+import com.infercidium.mediscreenUI.proxies.InfoProxy;
+import com.infercidium.mediscreenUI.proxies.NoteProxy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.ui.Model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = {InterfaceController.class})
+@RunWith(SpringRunner.class)
 class InterfaceControllerTest {
 
     @MockBean
@@ -30,6 +36,9 @@ class InterfaceControllerTest {
     private InfoProxy infoProxy;
 
     @MockBean
+    private NoteProxy noteProxy;
+
+    @MockBean
     private Model model;
 
     @Autowired
@@ -37,6 +46,8 @@ class InterfaceControllerTest {
 
     Patient patient = new Patient();
     List<Patient> patientList = new ArrayList<>();
+
+    List<Note> noteList = Collections.emptyList();
 
     @BeforeEach
     void setUp() {
@@ -70,7 +81,10 @@ class InterfaceControllerTest {
 
     @Test
     void patient() {
-        String result = interfaceController.patient(model, patient.getPatientId());
+        Page<Note> notePage = new PageImpl<>(noteList);
+        Mockito.when(noteProxy.getPatientNote(patient.getPatientId())).thenReturn(noteList);
+        Mockito.when(paginationIService.notePagination(noteList, 1)).thenReturn(notePage);
+        String result = interfaceController.patient(model, patient.getPatientId(), 1);
         assertEquals("patient", result);
     }
 

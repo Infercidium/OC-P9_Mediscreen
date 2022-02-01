@@ -42,7 +42,7 @@ class PatientServiceTest {
         patient.setAddress("address");
         patient.setPhone("phone");
         //SafeTest
-        patient.setResult(Result.UNKNOWN);
+        patient.setResult(Result.Unknown);
         //Mock
         Mockito.when(patientRepository.findById(1)).thenReturn(java.util.Optional.ofNullable(patient));
     }

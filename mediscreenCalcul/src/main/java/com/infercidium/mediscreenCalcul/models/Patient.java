@@ -1,11 +1,10 @@
-package com.infercidium.mediscreenUI.model;
+package com.infercidium.mediscreenCalcul.models;
 
-import com.infercidium.mediscreenUI.constants.Genres;
-import com.infercidium.mediscreenUI.constants.Result;
+import com.infercidium.mediscreenCalcul.constants.Genres;
+import com.infercidium.mediscreenCalcul.constants.Result;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -20,29 +19,28 @@ public class Patient {
     /**
      * Attribute id corresponding to id generate.
      */
+    @NotNull
     private Integer patientId;
     /**
      * Attribute given corresponding to firstName patient.
      */
-    @NotBlank(message = "Le prénom est obligatoire")
+    @NotBlank
     private String given;
     /**
      * Attribute family corresponding to lastName patient.
      */
-    @NotBlank(message = "Le nom est obligatoire")
+    @NotBlank
     private String family;
     /**
      * Attribute dob corresponding to birthday patient.
      */
-    @NotNull(message = "La date de naissance est obligatoire")
-    @PastOrPresent(message = "La date de naissance "
-            + "ne peut pas être dans le futur")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
+    @PastOrPresent
     private LocalDate dob; //date of birthday
     /**
      * Attribute sex corresponding to patient genre.
      */
-    @NotNull(message = "Le genre doit-être défini")
+    @NotNull
     private Genres sex;
     /**
      * Attribute address corresponding to address of patient.
@@ -56,7 +54,8 @@ public class Patient {
     /**
      * Attribute result corresponding to diabetes result.
      */
-    private Result result = Result.UNKNOWN;
+    @NotNull
+    private Result result;
 
     /**
      * Obtain the patient's age by comparing the current date
@@ -65,22 +64,6 @@ public class Patient {
      */
     public int getAge() {
         return Math.toIntExact(ChronoUnit.YEARS.between(dob, LocalDate.now()));
-    }
-
-    /**
-     * Get the lastname in lowerCase for sorting lists.
-     * @return family attribute in lowerCase.
-     */
-    public String getFamilySort() {
-        return family.toLowerCase();
-    }
-
-    /**
-     * Get the firstname in lowerCase for sorting lists.
-     * @return given attribute in lowerCase.
-     */
-    public String getGivenSort() {
-        return given.toLowerCase();
     }
 
     /**

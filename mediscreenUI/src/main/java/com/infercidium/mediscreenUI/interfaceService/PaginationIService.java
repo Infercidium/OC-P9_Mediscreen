@@ -1,7 +1,7 @@
 package com.infercidium.mediscreenUI.interfaceService;
 
-import com.infercidium.mediscreenUI.model.Note;
-import com.infercidium.mediscreenUI.model.Patient;
+import com.infercidium.mediscreenUI.models.Note;
+import com.infercidium.mediscreenUI.models.Patient;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

@@ -42,12 +42,18 @@ class PatientControllerTest {
         patient.setAddress("address");
         patient.setPhone("phone");
         //SafeTest
-        patient.setResult(Result.UNKNOWN);
+        patient.setResult(Result.Unknown);
     }
 
     @Test
     void addPatient() {
         patientController.addPatient(patient);
+        Mockito.verify(patientIService, Mockito.times(1)).postPatient(patient);
+    }
+
+    @Test
+    void addURLPatient() {
+        patientController.addURLPatient(patient);
         Mockito.verify(patientIService, Mockito.times(1)).postPatient(patient);
     }
 

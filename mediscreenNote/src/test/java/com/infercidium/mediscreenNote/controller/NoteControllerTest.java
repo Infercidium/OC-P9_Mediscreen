@@ -47,6 +47,12 @@ class NoteControllerTest {
     }
 
     @Test
+    void addXMLNote() {
+        noteController.addURLNote(note);
+        Mockito.verify(noteIService, Mockito.times(1)).postNote(note);
+    }
+
+    @Test
     void updateNote() {
         noteController.updateNote("1", note);
         Mockito.verify(noteIService, Mockito.times(1)).updateNote(note, "1");
@@ -56,6 +62,12 @@ class NoteControllerTest {
     void removeNote() {
         noteController.removeNote("1");
         Mockito.verify(noteIService, Mockito.times(1)).deleteNote("1");
+    }
+
+    @Test
+    void removeNotes() {
+        noteController.removeNotes(1);
+        Mockito.verify(noteIService, Mockito.times(1)).deleteListNote(1);
     }
 
     @Test
