@@ -1,6 +1,5 @@
 package com.infercidium.mediscreenCalcul.controller;
 
-import com.infercidium.mediscreenCalcul.constants.Assess;
 import com.infercidium.mediscreenCalcul.constants.Genres;
 import com.infercidium.mediscreenCalcul.constants.Result;
 import com.infercidium.mediscreenCalcul.interfaceService.AssessIService;
