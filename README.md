@@ -7,66 +7,73 @@ Description
 This application uses java 8 with spring boot and maven, as well as MySQL and MongoDB for the databases, 
 finally Docker through Dockerfiles and Docker-compose allows the proper deployment of the application.
 
-IMAGE COMPOSITION
+![schemas P9](https://user-images.githubusercontent.com/82523651/152108360-ce8b3903-a1d2-4b93-95f3-ac321914d85a.png)
 
-A Réadapté =>
 ### INTERACTION
 Access to the user interface is through `localhost:8083`.
 
-1. `Home`
+`Home`
   * Available with a simple `/`.
-  * Gives access to Login and user management.
-  * 
-2. `Login`
-  * Contains classic login and login by GitHub.
-  * The classic connection requires the username and the user password, this one must have an upper case, a lower case, a number, a special character and be at least 8 characters long.
-  
-3. `bidList` & `curvePoint` & `rating` & `ruleName` & `trade` & `user`
+  * Gives access to Research for found patient.
 
-  Appel d'url depuis un terminal:
+  Call url from terminal:
+  
+  `curl -d "family={family}&given={given}&dob={dob}&sex={sex}&address={address}" -X POST http://localhost:8081/patient/add`
+  * Allows you to add a patient in the MySQL database by going directly through the Info-module.
+
+  `curl -d "patId={patId}&=Patient: {Patient.family} Practitioner's notes/recommendations: {notes/recommendations}" -X POST http://localhost:8082/patHistory/add`
+  * Allows you to add a note in the MongoDB database by going directly through the Note-module.
+
+  `curl -d "patId={patId}" -X POST http://localhost:8080/assess/id`
+  * Allows you to obtain the result of the diabetes risk report by going directly through the Assess module. 
+  * For the patient with the same id.
+
+  `curl -d "familyName={familyName}" -X POST http://localhost:8080/assess/familyName`
+  * Allows you to obtain the result of the diabetes risk report by going directly through the Assess module. 
+  * For the patient with the same last name, the first.
   
 ## Launch
 Application uses docker-compose, use the following command to start it:
 `docker-compose start` and stop with `docker-compose stop`
 
 ### First Launch
-During the first launch, it is important to check if the `ports` used by TourGuide are not already occupied on your machine, 
-this information is available in `docker-compose`: `tourguide_net`, the `ipv4_adress` of each container and the `networks`.
+During the first launch, it is important to check if the `ports` used by Mediscreen are not already occupied on your machine, 
+this information is available in `docker-compose`: `mediscreen_net`, the `ipv4_adress` of each container and the `networks`.
 
 Setup for docker-compose:
 
-Entry into the Main module: 
-`cd TourGuide`
+Entry into the UI module: 
+`cd mediscreenUI`
 
-BootJar construction:
-`./gradlew bootjar`
-
-Back to the whole project:
-`cd..`
-
-Entry into the GpsUtil module:
-`cd TourGuide_GpsUtil`
-
-BootJar construction:
-`./gradlew bootjar`
+Building the .jar file:
+`mvn clean install -DskipTests`
 
 Back to the whole project:
 `cd..`
 
-Entry into the RewardCentral module:
-`cd TourGuide_RewardCentral`
+Entry into the Info module:
+`cd mediscreenInfo`
 
-BootJar construction:
-`./gradlew bootjar`
+Building the .jar file:
+`mvn clean install -DskipTests`
 
 Back to the whole project:
 `cd..`
 
-Entering the TripPricer module:
-`cd TourGuide_TripPricer`
+Entry into the Note module:
+`cd mediscreenNote`
 
-BootJar construction:
-`./gradlew bootjar`
+Building the .jar file:
+`mvn clean install -DskipTests`
+
+Back to the whole project:
+`cd..`
+
+Entering the Assess module:
+`cd mediscreenCalcul`
+
+Building the .jar file:
+`mvn clean install -DskipTests`
 
 Back to the whole project:
 `cd..`
@@ -76,50 +83,57 @@ And finally `docker-compose up`, for stop use `docker-compose stop`.
 ## Testing
 This app has Unit test written. Once the test has been generated, it can be accessed by following this path: 
 
-`JavaPathENProject8\TourGuide\build\jacocoHtml\index.html` for the Main module, 
+`P9-mediscreen\mediscreenUI\target\site\project-reports.html` for the UI module, 
 
-`JavaPathENProject8\TourGuide_GpsUtil\build\jacocoHtml\index.html` for the GpsUtil module, 
+`P9-mediscreen\mediscreenInfo\target\site\project-reports.html` for the Info module, 
 
-`JavaPathENProject8\TourGuide_RewardCentral\build\jacocoHtml\index.html` for the RewardCentral module 
+`P9-mediscreen\mediscreenNote\target\site\project-reports.html` for the Note module 
 
-and `JavaPathENProject8\TourGuide_TripPricer\build\jacocoHtml\index.html` for the TripPricer module.
+and `P9-mediscreen\mediscreenCalcul\target\site\project-reports.html` for the Assess module.
 
 ### Test Report
 
 To generate the 4 reports:
 
-Entry into the Main module: 
-`cd TourGuide`
+Entry into the UI module: 
+`cd mediscreenUI`
 
 Test generation:
-`./gradlew test`
+
+`mvn clean test site`
+* Gets the unit test report.
+
+OR
+
+`mvn clean verify site`
+* Allows you to obtain the report of all the unit and integration tests, but the 3 other modules (info, note and assess) must be in operation.
 
 Back to the whole project:
 `cd..`
 
-Entry into the GpsUtil module:
-`cd TourGuide_GpsUtil`
+Entry into the Info module:
+`cd mediscreenInfo`
 
 Test generation:
-`./gradlew test`
+`mvn clean verify site`
 
 Back to the whole project:
 `cd..`
 
-Entry into the RewardCentral module:
-`cd TourGuide_RewardCentral`
+Entry into the Note module:
+`cd mediscreenNote`
 
 Test generation:
-`./gradlew test`
+`mvn clean verify site`
 
 Back to the whole project:
 `cd..`
 
-Entering the TripPricer module:
-`cd TourGuide_TripPricer`
+Entering the Assess module:
+`cd mediscreenCalcul`
 
 Test generation:
-`./gradlew test`
+`mvn clean verify site`
 
 Back to the whole project:
 `cd..`
