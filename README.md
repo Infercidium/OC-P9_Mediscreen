@@ -1,5 +1,5 @@
 # Mediscreen
-Description
+The Mediscreen application allows the physician to make a preventive screening for type 2 diabetes based on patient information and associated medical notes.
 
 ## Composing
 
@@ -46,7 +46,7 @@ Entry into the UI module:
 `cd mediscreenUI`
 
 Building the .jar file:
-`mvn clean install -DskipTests`
+`mvn clean install`
 
 Back to the whole project:
 `cd..`
@@ -55,7 +55,7 @@ Entry into the Info module:
 `cd mediscreenInfo`
 
 Building the .jar file:
-`mvn clean install -DskipTests`
+`mvn clean install`
 
 Back to the whole project:
 `cd..`
@@ -64,7 +64,7 @@ Entry into the Note module:
 `cd mediscreenNote`
 
 Building the .jar file:
-`mvn clean install -DskipTests`
+`mvn clean install`
 
 Back to the whole project:
 `cd..`
@@ -73,7 +73,7 @@ Entering the Assess module:
 `cd mediscreenCalcul`
 
 Building the .jar file:
-`mvn clean install -DskipTests`
+`mvn clean install`
 
 Back to the whole project:
 `cd..`
@@ -99,14 +99,7 @@ Entry into the UI module:
 `cd mediscreenUI`
 
 Test generation:
-
-`mvn clean test site`
-* Gets the unit test report.
-
-OR
-
 `mvn clean verify site`
-* Allows you to obtain the report of all the unit and integration tests, but the 3 other modules (info, note and assess) must be in operation.
 
 Back to the whole project:
 `cd..`
