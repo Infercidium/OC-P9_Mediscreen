@@ -26,7 +26,6 @@ public final class Filter {
         HttpStatus status = response.statusCode();
         if (status.isError()) {
             LOGGER.error("mediscreenInfo: " + status);
-            System.out.println(response.strategies().messageWriters());
             return response.bodyToMono(String.class)
                     .flatMap(body -> Mono.error(new Exception(body)));
         }
@@ -43,7 +42,6 @@ public final class Filter {
         HttpStatus status = response.statusCode();
         if (status.isError()) {
             LOGGER.error("mediscreenNote: " + status);
-            System.out.println(response.strategies().messageWriters());
             return response.bodyToMono(String.class)
                     .flatMap(body -> Mono.error(new Exception(body)));
         }
@@ -60,7 +58,6 @@ public final class Filter {
         HttpStatus status = response.statusCode();
         if (status.isError()) {
             LOGGER.error("mediscreenCalcul: " + status);
-            System.out.println(response.strategies().messageWriters());
             return response.bodyToMono(String.class)
                     .flatMap(body -> Mono.error(new Exception(body)));
         }
