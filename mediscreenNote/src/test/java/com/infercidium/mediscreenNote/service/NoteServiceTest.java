@@ -1,5 +1,6 @@
 package com.infercidium.mediscreenNote.service;
 
+import com.infercidium.mediscreenNote.dto.NoteDto;
 import com.infercidium.mediscreenNote.model.Note;
 import com.infercidium.mediscreenNote.repository.NoteRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +32,8 @@ class NoteServiceTest {
     Note note = new Note();
     List<Note> noteList = Collections.singletonList(note);
 
+    NoteDto noteDto = new NoteDto();
+
     @BeforeEach
     void setUp() {
         note.setNoteId("1");
@@ -39,6 +42,9 @@ class NoteServiceTest {
         note.setPatient("patient");
         note.setTimesheet(LocalDate.of(2020,1,1));
         note.setPatId(1);
+
+        noteDto.setPatId(1);
+        noteDto.setE("Patient: patient Practitioner's notes/recommendations: memo");
 
         Mockito.when(noteRepository.findById("1")).thenReturn(Optional.ofNullable(note));
         Mockito.when(noteRepository.findByPatId(1)).thenReturn(noteList);
@@ -78,5 +84,13 @@ class NoteServiceTest {
     void deleteListNote() {
         noteService.deleteListNote(1);
         Mockito.verify(noteRepository, Mockito.times(1)).deleteAll(noteList);
+    }
+
+    @Test
+    void dtoToNote() {
+        Note result = noteService.dtoToNote(noteDto);
+        assertEquals(note.getPatId(), result.getPatId());
+        assertEquals(note.getPatient(), result.getPatient());
+        assertEquals(note.getMemo(), result.getMemo());
     }
 }

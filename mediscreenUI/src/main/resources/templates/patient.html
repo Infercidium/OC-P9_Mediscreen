@@ -204,7 +204,7 @@
                             <h5 class="modal-title">Note</h5>
                         </div>
                         <div class="modal-body">
-                            <p th:text="${note.memo}">Memo</p>
+                            <textarea class="form-control-plaintext" th:text="${note.memo}" disabled readonly>Memo</textarea>
                             <table>
                                 <tbody>
                                 <tr>

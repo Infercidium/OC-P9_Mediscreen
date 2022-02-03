@@ -72,6 +72,21 @@ public class PatientController {
     }
 
     /**
+     * Update patient to the database.
+     * @param id of patient.
+     * @param patient with new information.
+     * @return the updated patient.
+     */
+    @PutMapping(value = {"/patient/update/{id}"},
+            consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public Patient updateURLPatient(@PathVariable final int id,
+                                    final Patient patient) {
+        Patient update = patientIService.updatePatient(patient, id);
+        LOGGER.info("Patient Update");
+        return update;
+    }
+
+    /**
      * Remove patient of the database.
      * @param id of patient.
      */

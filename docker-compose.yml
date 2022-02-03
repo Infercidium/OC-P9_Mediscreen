@@ -23,6 +23,7 @@ services:
     depends_on:
       - mediscreen_db_sql
     build: mediscreenInfo/.
+    restart: on-failure
     ports:
       - "8081:8081"
     environment:

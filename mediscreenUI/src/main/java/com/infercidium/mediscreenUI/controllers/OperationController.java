@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -60,9 +59,10 @@ public class OperationController {
      * family or given: all the patients with the parameter,
      * family and given: the list of all the patients with the two parameters,
      * the patient's page there is only one.
-     * @param model containing the elements to display.
+     *
+     * @param model  containing the elements to display.
      * @param family of patient.
-     * @param given of patient.
+     * @param given  of patient.
      * @return the patient list to display.
      */
     @GetMapping("/patientResearch")
@@ -70,37 +70,37 @@ public class OperationController {
                                   final String family,
                                   final String given) {
 
-        try {
-            List<Patient> patientList;
-            if (given.isEmpty() && family.isEmpty()) {
-                patientList
-                        = infoProxy.getAllPatient();
-            } else if (given.isEmpty()) {
-                patientList
-                        = infoProxy.getListFamilyPatient(family);
-            } else if (family.isEmpty()) {
-                patientList
-                        = infoProxy.getListGivenPatient(given);
-            } else {
-                patientList
-                        = infoProxy.getPatient(family, given);
-                if (patientList.size() == 1) {
-                    LOGGER.debug("Patient found");
-                    return "redirect:/patient/"
-                            + patientList.get(0).getPatientId();
-                }
+        List<Patient> patientList;
+        if (given.isEmpty() && family.isEmpty()) {
+            patientList
+                    = infoProxy.getAllPatient();
+        } else if (given.isEmpty()) {
+            patientList
+                    = infoProxy.getListFamilyPatient(family);
+        } else if (family.isEmpty()) {
+            patientList
+                    = infoProxy.getListGivenPatient(given);
+        } else {
+            patientList
+                    = infoProxy.getPatient(family, given);
+            if (patientList.size() == 1) {
+                LOGGER.debug("Patient found");
+                return "redirect:/patient/"
+                        + patientList.get(0).getPatientId();
             }
-            interfaceController.setPatientList(patientList);
-        } catch (WebClientResponseException e) {
+        }
+        if (patientList.isEmpty()) {
             LOGGER.info("No patient found");
             return "redirect:/?noResult";
         }
+        interfaceController.setPatientList(patientList);
         LOGGER.debug("Patient list found");
         return "redirect:/patientList";
     }
 
     /**
      * Request to delete a patient.
+     *
      * @param id of patient.
      * @return the deletion validation page.
      */
@@ -114,9 +114,10 @@ public class OperationController {
 
     /**
      * Verifies the patient and adds it to the database.
-     * @param model containing the elements to display.
+     *
+     * @param model   containing the elements to display.
      * @param patient to add to the database.
-     * @param result to error validation.
+     * @param result  to error validation.
      * @return added patient page.
      */
     @PostMapping("/validatenew")
@@ -134,10 +135,11 @@ public class OperationController {
 
     /**
      * Checks the patient and modifies it in the database.
-     * @param model containing the elements to display.
+     *
+     * @param model   containing the elements to display.
      * @param patient to modify in the database.
-     * @param result to error validation.
-     * @param id of the patient to modify.
+     * @param result  to error validation.
+     * @param id      of the patient to modify.
      * @return modified patient page.
      */
     @PostMapping("/validateupdate/{id}")
@@ -159,9 +161,10 @@ public class OperationController {
 
     /**
      * Verifies the note and adds it to the database.
-     * @param note to add.
+     *
+     * @param note   to add.
      * @param result to error validation.
-     * @param patId is patient id.
+     * @param patId  is patient id.
      * @return patient page.
      */
     @PostMapping("validateNewNote/{patId}")
@@ -179,10 +182,11 @@ public class OperationController {
 
     /**
      * Checks the patient and modifies it in the database.
-     * @param note to update.
+     *
+     * @param note   to update.
      * @param result to error validation.
-     * @param patId is patient id.
-     * @param id of note.
+     * @param patId  is patient id.
+     * @param id     of note.
      * @return patient page.
      */
     @PostMapping("validateUpdateNote/{patId}")
@@ -201,6 +205,7 @@ public class OperationController {
 
     /**
      * Request to delete a note.
+     *
      * @param id of note.
      * @return the deletion validation page.
      */
@@ -214,11 +219,12 @@ public class OperationController {
 
     /**
      * Request to assess patient report.
+     *
      * @param id of patient.
-     * @return the assess patient page.
+     * @return to assess patient page.
      */
     @GetMapping("assess/patient/{id}")
-    public String assessPatient(@PathVariable final  int id) {
+    public String assessPatient(@PathVariable final int id) {
         Result result = assessProxy.getPatientResult(id);
         return "redirect:/patient/" + id + "?" + result.name();
     }
