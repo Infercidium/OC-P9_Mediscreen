@@ -106,6 +106,5 @@ public class InfoProxy {
     public Void removePatient(final int id) {
        return infoClient.delete().uri("/patient/remove/{id}", id)
                .retrieve().bodyToMono(Void.class).block();
-       //TODO A VOIR (Pas Satisfaisant)
     }
 }

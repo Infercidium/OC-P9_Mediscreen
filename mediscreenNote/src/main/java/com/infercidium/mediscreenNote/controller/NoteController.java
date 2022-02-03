@@ -1,5 +1,6 @@
 package com.infercidium.mediscreenNote.controller;
 
+import com.infercidium.mediscreenNote.dto.NoteDto;
 import com.infercidium.mediscreenNote.interfaceService.NoteIService;
 import com.infercidium.mediscreenNote.model.Note;
 import org.slf4j.Logger;
@@ -44,12 +45,12 @@ public class NoteController {
 
     /**
      * Add note to the database.
-     * @param note to add.
+     * @param noteDto to add.
      */
     @PostMapping(value = {"/patHistory/add"},
             consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public void addURLNote(@Valid final Note note) {
-        System.out.println(note);
+    public void addURLNote(@Valid final NoteDto noteDto) {
+        Note note = noteIService.dtoToNote(noteDto);
         noteIService.postNote(note);
         LOGGER.info("Note Save");
     }
@@ -62,6 +63,20 @@ public class NoteController {
     @PutMapping("/patHistory/update/{id}")
     public void updateNote(@PathVariable final String id,
                            @RequestBody final Note note) {
+        noteIService.updateNote(note, id);
+        LOGGER.info("Note Update");
+    }
+
+    /**
+     * Update note to the database.
+     * @param id of note.
+     * @param noteDto with new information.
+     */
+    @PutMapping(value = {"/patHistory/update/{id}"},
+            consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public void updateURLNote(@PathVariable final String id,
+                              final NoteDto noteDto) {
+        Note note = noteIService.dtoToNote(noteDto);
         noteIService.updateNote(note, id);
         LOGGER.info("Note Update");
     }

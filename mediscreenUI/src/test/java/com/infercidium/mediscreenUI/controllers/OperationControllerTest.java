@@ -21,6 +21,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -84,7 +85,7 @@ class OperationControllerTest {
         Mockito.when(infoProxy.getListFamilyPatient(patient.getFamily())).thenReturn(patientList);
         Mockito.when(infoProxy.getListGivenPatient(patient.getGiven())).thenReturn(patientList);
         Mockito.when(infoProxy.getPatient(patient.getFamily(), patient.getGiven())).thenReturn(patientList);
-        Mockito.when(infoProxy.getPatient("123", "098")).thenThrow(WebClientResponseException.class);
+        Mockito.when(infoProxy.getPatient("123", "098")).thenReturn(Collections.emptyList());
 
         String resultAll = operationController.patientResearch(model, "", "");
         String resultFamily = operationController.patientResearch(model, patient.getFamily(), "");

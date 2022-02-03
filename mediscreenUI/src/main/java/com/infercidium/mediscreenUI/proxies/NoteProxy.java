@@ -53,7 +53,6 @@ public class NoteProxy {
     public Void addNote(final Note note) {
         return noteClient.post().uri("/patHistory/add").bodyValue(note)
                 .retrieve().bodyToMono(Void.class).block();
-        //TODO A VOIR (Pas Satisfaisant)
     }
 
     /**
@@ -66,7 +65,6 @@ public class NoteProxy {
         return noteClient.put().uri("/patHistory/update/{id}", id)
                 .bodyValue(note)
                 .retrieve().bodyToMono(Void.class).block();
-        //TODO A VOIR (Pas Satisfaisant)
     }
 
     /**
@@ -77,7 +75,6 @@ public class NoteProxy {
     public Void deleteNote(final String id) {
         return noteClient.delete().uri("/patHistory/remove/{id}", id)
                 .retrieve().bodyToMono(Void.class).block();
-        //TODO A VOIR (Pas Satisfaisant)
     }
 
     /**
@@ -88,6 +85,5 @@ public class NoteProxy {
     public Void deleteNotes(final int patId) {
         return noteClient.delete().uri("/patHistory/removes/{patId}", patId)
                 .retrieve().bodyToMono(Void.class).block();
-        //TODO A VOIR (Pas Satisfaisant)
     }
 }

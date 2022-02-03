@@ -1,5 +1,6 @@
 package com.infercidium.mediscreenNote.service;
 
+import com.infercidium.mediscreenNote.dto.NoteDto;
 import com.infercidium.mediscreenNote.interfaceService.NoteIService;
 import com.infercidium.mediscreenNote.model.Note;
 import com.infercidium.mediscreenNote.repository.NoteRepository;
@@ -8,7 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NoteService implements NoteIService {
@@ -92,5 +95,27 @@ public class NoteService implements NoteIService {
         List<Note> noteList = getPatientNote(patId);
         noteR.deleteAll(noteList);
         LOGGER.debug("notes related to the patient are deleted.");
+    }
+
+    /**
+     * Allows you to transform a NoteDto into a Note.
+     * @param noteDto to transform.
+     * @return note result.
+     */
+    @Override
+    public Note dtoToNote(final NoteDto noteDto) {
+        String[] split = noteDto.getE().split(": ");
+        List<String> stringList
+                = Arrays.stream(split).collect(Collectors.toList());
+
+        String memo = stringList.get(2);
+        String patient = stringList.get(1)
+                .replace(" Practitioner's notes/recommendations", "");
+
+        Note note = new Note();
+        note.setPatId(noteDto.getPatId());
+        note.setMemo(memo);
+        note.setPatient(patient);
+        return note;
     }
 }

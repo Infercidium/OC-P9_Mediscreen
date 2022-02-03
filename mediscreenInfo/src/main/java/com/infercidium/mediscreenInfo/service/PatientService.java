@@ -76,9 +76,6 @@ public class PatientService implements PatientIService {
         List<Patient> patientList
                 = patientR.findByFamilyIgnoreCaseAndGivenIgnoreCase(
                         family, given);
-        if (patientList.isEmpty()) {
-            throw new NullPointerException("Patient not found, empty list");
-        }
         LOGGER.debug("patient(s) found");
         return patientList;
     }
@@ -90,9 +87,6 @@ public class PatientService implements PatientIService {
     @Override
     public List<Patient> getPatientList() {
         List<Patient> patientList = patientR.findAll();
-        if (patientList.isEmpty()) {
-            throw new NullPointerException("Patient not found, empty list");
-        }
         LOGGER.debug("patientList found");
         return patientList;
     }
@@ -106,9 +100,6 @@ public class PatientService implements PatientIService {
     public List<Patient> getFamilyPatient(final String family) {
         List<Patient> patientList
                 = patientR.findByFamilyIgnoreCase(family);
-        if (patientList.isEmpty()) {
-            throw new NullPointerException("Patient not found, empty list");
-        }
         LOGGER.debug("patient(s) found");
         return patientList;
     }
@@ -122,9 +113,6 @@ public class PatientService implements PatientIService {
     public List<Patient> getGivenPatient(final String given) {
         List<Patient> patientList
                 = patientR.findByGivenIgnoreCase(given);
-        if (patientList.isEmpty()) {
-            throw new NullPointerException("Patient not found, empty list");
-        }
         LOGGER.debug("patient(s) found");
         return patientList;
     }

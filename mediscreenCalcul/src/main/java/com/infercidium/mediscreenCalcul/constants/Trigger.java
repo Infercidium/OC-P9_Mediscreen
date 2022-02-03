@@ -26,6 +26,10 @@ public enum Trigger {
      */
     anormal,
     /**
+     * Aggravating.
+     */
+    anormaux,
+    /**
      * Symptom.
      */
     cholestérol,

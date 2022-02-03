@@ -1,5 +1,6 @@
 package com.infercidium.mediscreenNote.interfaceService;
 
+import com.infercidium.mediscreenNote.dto.NoteDto;
 import com.infercidium.mediscreenNote.model.Note;
 
 import java.util.List;
@@ -48,4 +49,11 @@ public interface NoteIService {
      * @param patId is patient id.
      */
     void deleteListNote(int patId);
+
+    /**
+     * Allows you to transform a NoteDto into a Note.
+     * @param noteDto to transform.
+     * @return note result.
+     */
+    Note dtoToNote(NoteDto noteDto);
 }

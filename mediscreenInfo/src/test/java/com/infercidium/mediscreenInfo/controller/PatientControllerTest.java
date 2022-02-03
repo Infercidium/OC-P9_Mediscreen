@@ -59,6 +59,12 @@ class PatientControllerTest {
 
     @Test
     void updatePatient() {
+        patientController.updateURLPatient(1, patient);
+        Mockito.verify(patientIService, Mockito.times(1)).updatePatient(patient, 1);
+    }
+
+    @Test
+    void updateURLPatient() {
         patientController.updatePatient(1, patient);
         Mockito.verify(patientIService, Mockito.times(1)).updatePatient(patient, 1);
     }

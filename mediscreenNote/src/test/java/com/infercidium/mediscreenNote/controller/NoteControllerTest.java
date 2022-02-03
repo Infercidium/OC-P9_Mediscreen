@@ -1,10 +1,12 @@
 package com.infercidium.mediscreenNote.controller;
 
+import com.infercidium.mediscreenNote.dto.NoteDto;
 import com.infercidium.mediscreenNote.interfaceService.NoteIService;
 import com.infercidium.mediscreenNote.model.Note;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +29,7 @@ class NoteControllerTest {
     @Autowired
     private NoteController noteController;
 
+    NoteDto noteDto = new NoteDto();
     Note note = new Note();
     List<Note> noteList = Collections.singletonList(note);
 
@@ -47,14 +50,22 @@ class NoteControllerTest {
     }
 
     @Test
-    void addXMLNote() {
-        noteController.addURLNote(note);
+    void addURLNote() {
+        Mockito.when(noteIService.dtoToNote(noteDto)).thenReturn(note);
+        noteController.addURLNote(noteDto);
         Mockito.verify(noteIService, Mockito.times(1)).postNote(note);
     }
 
     @Test
     void updateNote() {
         noteController.updateNote("1", note);
+        Mockito.verify(noteIService, Mockito.times(1)).updateNote(note, "1");
+    }
+
+    @Test
+    void updateURLNote() {
+        Mockito.when(noteIService.dtoToNote(noteDto)).thenReturn(note);
+        noteController.updateURLNote("1", noteDto);
         Mockito.verify(noteIService, Mockito.times(1)).updateNote(note, "1");
     }
 
