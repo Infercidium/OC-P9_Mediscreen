@@ -59,7 +59,6 @@ public class OperationController {
      * family or given: all the patients with the parameter,
      * family and given: the list of all the patients with the two parameters,
      * the patient's page there is only one.
-     *
      * @param model  containing the elements to display.
      * @param family of patient.
      * @param given  of patient.
@@ -157,8 +156,8 @@ public class OperationController {
         LOGGER.info("Patient updated");
         return "redirect:/patient/" + updatePatient.getPatientId();
     }
-//Note
 
+//Note
     /**
      * Verifies the note and adds it to the database.
      *
@@ -217,6 +216,7 @@ public class OperationController {
         return "redirect:/patient/" + note.getPatId() + "?successDelete";
     }
 
+    //Assess
     /**
      * Request to assess patient report.
      *
